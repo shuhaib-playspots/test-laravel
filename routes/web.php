@@ -2,12 +2,22 @@
 
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\AdmissionController;
+use App\Http\Controllers\CourseController;
 use App\Http\Controllers\Admin\AdmissionController as AdminAdmissionController;
+use App\Http\Controllers\Admin\DashboardController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('home');
 })->name('home');
+
+Route::get('/about', function () {
+    return view('about');
+})->name('about');
+
+// Courses
+Route::get('/courses', [CourseController::class, 'index'])->name('courses.index');
+Route::get('/courses/{slug}', [CourseController::class, 'show'])->name('courses.show');
 
 // Get Started / Admission
 Route::get('/get-started', [AdmissionController::class, 'show'])->name('get-started');
@@ -20,9 +30,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // Protected admin routes
 Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     Route::get('/admissions', [AdminAdmissionController::class, 'index'])->name('admissions.index');
     Route::patch('/admissions/{id}/status', [AdminAdmissionController::class, 'updateStatus'])->name('admissions.updateStatus');

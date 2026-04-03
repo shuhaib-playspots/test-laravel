@@ -544,10 +544,10 @@
         </a>
 
         <div class="nav-links">
-            <a href="#about">About Us</a>
+            <a href="{{ route('about') }}">About Us</a>
+            <a href="{{ route('courses.index') }}">Courses</a>
             <a href="#classes">Our Classes</a>
             <a href="#programs">Programs</a>
-            <a href="#founders">Founders</a>
             <a href="#contact">Contact</a>
         </div>
 

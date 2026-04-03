@@ -532,15 +532,23 @@
 
                         <div class="form-group">
                             <label class="form-label" for="program">Program of Interest <span class="req">*</span></label>
+                            @php $selectedProgram = old('program', request('program')); @endphp
                             <select id="program" name="program"
                                     class="form-select @error('program') input-error @enderror">
-                                <option value="" disabled {{ old('program') ? '' : 'selected' }}>— Select a program —</option>
-                                <option value="Quran Recitation (Nazra)"          {{ old('program') === 'Quran Recitation (Nazra)'          ? 'selected' : '' }}>Quran Recitation (Nazra)</option>
-                                <option value="Hifz ul Quran (Memorisation)"      {{ old('program') === 'Hifz ul Quran (Memorisation)'      ? 'selected' : '' }}>Hifz ul Quran (Memorisation)</option>
-                                <option value="Arabic Language"                    {{ old('program') === 'Arabic Language'                    ? 'selected' : '' }}>Arabic Language</option>
-                                <option value="Islamic Studies"                    {{ old('program') === 'Islamic Studies'                    ? 'selected' : '' }}>Islamic Studies</option>
-                                <option value="Duas & Adhkar"                      {{ old('program') === 'Duas & Adhkar'                      ? 'selected' : '' }}>Duas &amp; Adhkar</option>
-                                <option value="Combined (Quran + Islamic Studies)" {{ old('program') === 'Combined (Quran + Islamic Studies)' ? 'selected' : '' }}>Combined (Quran + Islamic Studies)</option>
+                                <option value="" disabled {{ $selectedProgram ? '' : 'selected' }}>— Select a program —</option>
+                                @foreach([
+                                    'Quran Recitation (Nazra)',
+                                    'Hifz ul Quran (Memorisation)',
+                                    'Tajweed',
+                                    'Arabic Language',
+                                    'Islamic Studies',
+                                    'Duas & Adhkar',
+                                    'Islamic Manners (Akhlaq)',
+                                ] as $prog)
+                                    <option value="{{ $prog }}" {{ $selectedProgram === $prog ? 'selected' : '' }}>
+                                        {{ $prog }}
+                                    </option>
+                                @endforeach
                             </select>
                             @error('program')<p class="error-msg">{{ $message }}</p>@enderror
                         </div>
