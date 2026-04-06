@@ -62,6 +62,25 @@
 
         /* ── MUI-style cards ── */
         .mui-card      { background: #fff; border-radius: 14px; box-shadow: 0 1px 4px rgba(0,0,0,.06), 0 4px 16px rgba(0,0,0,.04); }
+
+        /* ── Accordion nav groups ── */
+        .nav-group         { margin-bottom: 2px; }
+        .nav-group-toggle  { width: 100%; background: none; border: none; cursor: pointer; display: flex; align-items: center; gap: 11px; padding: 10px 12px; border-radius: 10px; color: rgba(255,255,255,.6); font-size: 13.5px; font-weight: 500; transition: background .15s, color .15s; text-align: left; }
+        .nav-group-toggle:hover { background: rgba(255,255,255,.07); color: #fff; }
+        .nav-group.open .nav-group-toggle { color: #fff; background: rgba(255,255,255,.05); }
+        .nav-group-toggle svg { width: 18px; height: 18px; flex-shrink: 0; }
+        .nav-chevron       { margin-left: auto; width: 14px !important; height: 14px !important; transition: transform .22s ease; flex-shrink: 0; }
+        .nav-group.open .nav-chevron { transform: rotate(180deg); }
+        .nav-group-toggle .nav-badge { margin-left: auto; margin-right: 4px; }
+
+        .nav-submenu       { overflow: hidden; max-height: 0; transition: max-height .25s ease; }
+        .nav-group.open .nav-submenu { max-height: 300px; }
+
+        .nav-sub-item      { display: flex; align-items: center; gap: 9px; padding: 7.5px 12px 7.5px 36px; border-radius: 10px; color: rgba(255,255,255,.5); font-size: 13px; font-weight: 500; text-decoration: none; transition: background .15s, color .15s; margin-bottom: 1px; position: relative; }
+        .nav-sub-item::before { content: ''; position: absolute; left: 20px; width: 5px; height: 5px; border-radius: 50%; background: currentColor; opacity: .45; }
+        .nav-sub-item:hover { background: rgba(255,255,255,.07); color: rgba(255,255,255,.85); }
+        .nav-sub-item.active { color: #7dd3c9; font-weight: 600; background: rgba(63,144,135,.15); }
+        .nav-sub-item.active::before { opacity: 1; background: #7dd3c9; }
     </style>
 </head>
 <body style="margin:0; background:#f0f2f5;">
@@ -81,9 +100,14 @@
         </div>
 
         {{-- Navigation --}}
+        @php
+            $inAdmissions = request()->routeIs('admin.admissions.*');
+            $inCourses    = request()->routeIs('admin.courses.*');
+        @endphp
         <div class="sidebar-nav">
             <div class="sidebar-section-label">Menu</div>
 
+            {{-- Dashboard --}}
             <a href="{{ route('admin.dashboard') }}"
                class="nav-item {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
                 <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -93,46 +117,52 @@
                 Dashboard
             </a>
 
-            <div class="sidebar-section-label" style="padding-top:14px;">Admissions</div>
+            {{-- Enquiries accordion --}}
+            <div class="nav-group {{ $inAdmissions ? 'open' : '' }}" id="group-enquiries">
+                <button type="button" class="nav-group-toggle" onclick="toggleGroup('group-enquiries')">
+                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                              d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25z"/>
+                    </svg>
+                    Enquiries
+                    @if(isset($stats) && $stats['pending'] > 0)
+                        <span class="nav-badge">{{ $stats['pending'] }}</span>
+                    @endif
+                    <svg class="nav-chevron" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"/>
+                    </svg>
+                </button>
+                <div class="nav-submenu">
+                    <a href="{{ route('admin.admissions.index') }}"
+                       class="nav-sub-item {{ $inAdmissions ? 'active' : '' }}">
+                        All Enquiries
+                    </a>
+                </div>
+            </div>
 
-            <a href="{{ route('admin.admissions.index') }}"
-               class="nav-item {{ request()->routeIs('admin.admissions.*') ? 'active' : '' }}">
-                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                          d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25z"/>
-                </svg>
-                All Enquiries
-                @if(isset($stats) && $stats['pending'] > 0)
-                    <span class="nav-badge">{{ $stats['pending'] }}</span>
-                @endif
-            </a>
-
-            <a href="{{ route('admin.admissions.index', ['status' => 'pending']) }}"
-               class="nav-item {{ request()->routeIs('admin.admissions.*') && request('status') === 'pending' ? 'active' : '' }}">
-                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                          d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                </svg>
-                Pending
-            </a>
-
-            <a href="{{ route('admin.admissions.index', ['status' => 'approved']) }}"
-               class="nav-item {{ request()->routeIs('admin.admissions.*') && request('status') === 'approved' ? 'active' : '' }}">
-                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                          d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                </svg>
-                Approved
-            </a>
-
-            <a href="{{ route('admin.admissions.index', ['status' => 'rejected']) }}"
-               class="nav-item {{ request()->routeIs('admin.admissions.*') && request('status') === 'rejected' ? 'active' : '' }}">
-                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                          d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                </svg>
-                Rejected
-            </a>
+            {{-- Courses accordion --}}
+            <div class="nav-group {{ $inCourses ? 'open' : '' }}" id="group-courses">
+                <button type="button" class="nav-group-toggle" onclick="toggleGroup('group-courses')">
+                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                              d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5zm0 0v-3.675A55.378 55.378 0 0112 8.443m-7.007 11.55A5.981 5.981 0 006.75 15.75v-1.5"/>
+                    </svg>
+                    Courses
+                    <svg class="nav-chevron" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"/>
+                    </svg>
+                </button>
+                <div class="nav-submenu">
+                    <a href="{{ route('admin.courses.index') }}"
+                       class="nav-sub-item {{ request()->routeIs('admin.courses.index') || request()->routeIs('admin.courses.edit') ? 'active' : '' }}">
+                        All Courses
+                    </a>
+                    <a href="{{ route('admin.courses.create') }}"
+                       class="nav-sub-item {{ request()->routeIs('admin.courses.create') ? 'active' : '' }}">
+                        Add New Course
+                    </a>
+                </div>
+            </div>
         </div>
 
         {{-- Footer: user + logout --}}
@@ -197,5 +227,10 @@
     </div>
 </div>
 
+<script>
+    function toggleGroup(id) {
+        document.getElementById(id).classList.toggle('open');
+    }
+</script>
 </body>
 </html>

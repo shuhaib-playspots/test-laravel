@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\AdmissionController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\Admin\AdmissionController as AdminAdmissionController;
+use App\Http\Controllers\Admin\CourseController as AdminCourseController;
 use App\Http\Controllers\Admin\DashboardController;
 use Illuminate\Support\Facades\Route;
 
@@ -34,4 +35,6 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
 
     Route::get('/admissions', [AdminAdmissionController::class, 'index'])->name('admissions.index');
     Route::patch('/admissions/{id}/status', [AdminAdmissionController::class, 'updateStatus'])->name('admissions.updateStatus');
+
+    Route::resource('courses', AdminCourseController::class)->except(['show']);
 });

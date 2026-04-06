@@ -12,6 +12,7 @@ class Course extends Model
         'tagline',
         'description',
         'icon',
+        'cover_image',
         'level',
         'duration',
         'age_group',
