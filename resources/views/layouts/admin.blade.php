@@ -101,8 +101,9 @@
 
         {{-- Navigation --}}
         @php
-            $inAdmissions = request()->routeIs('admin.admissions.*');
-            $inCourses    = request()->routeIs('admin.courses.*');
+            $inAdmissions  = request()->routeIs('admin.admissions.*');
+            $inCourses     = request()->routeIs('admin.courses.*');
+            $inPrintables  = request()->routeIs('admin.printables.*');
         @endphp
         <div class="sidebar-nav">
             <div class="sidebar-section-label">Menu</div>
@@ -136,6 +137,30 @@
                     <a href="{{ route('admin.admissions.index') }}"
                        class="nav-sub-item {{ $inAdmissions ? 'active' : '' }}">
                         All Enquiries
+                    </a>
+                </div>
+            </div>
+
+            {{-- Printables accordion --}}
+            <div class="nav-group {{ $inPrintables ? 'open' : '' }}" id="group-printables">
+                <button type="button" class="nav-group-toggle" onclick="toggleGroup('group-printables')">
+                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                              d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"/>
+                    </svg>
+                    Printables
+                    <svg class="nav-chevron" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"/>
+                    </svg>
+                </button>
+                <div class="nav-submenu">
+                    <a href="{{ route('admin.printables.index') }}"
+                       class="nav-sub-item {{ request()->routeIs('admin.printables.index') || request()->routeIs('admin.printables.edit') ? 'active' : '' }}">
+                        All Materials
+                    </a>
+                    <a href="{{ route('admin.printables.create') }}"
+                       class="nav-sub-item {{ request()->routeIs('admin.printables.create') ? 'active' : '' }}">
+                        Upload Material
                     </a>
                 </div>
             </div>

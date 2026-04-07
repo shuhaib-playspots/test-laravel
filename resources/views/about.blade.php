@@ -420,7 +420,7 @@
             <a href="{{ route('home') }}">Home</a>
             <a href="{{ route('about') }}" class="active">About Us</a>
             <a href="{{ route('courses.index') }}">Courses</a>
-            <a href="{{ route('home') }}#classes">Our Classes</a>
+            <a href="{{ route('printables.index') }}">Printables</a>
             <a href="{{ route('home') }}#contact">Contact</a>
         </div>
 

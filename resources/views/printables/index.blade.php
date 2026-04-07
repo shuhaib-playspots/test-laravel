@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Our Courses &mdash; Nabaath Learning Point</title>
+    <title>Free Printables &mdash; Nabaath Learning Point</title>
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=inter:300,400,500,600,700,800,900|amiri:400,700" rel="stylesheet"/>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -34,100 +34,65 @@
         .hamburger span { width: 24px; height: 2px; background: var(--brand); border-radius: 2px; }
 
         /* ── Hero ── */
-        .hero { min-height: 52vh; background: linear-gradient(135deg, #0d3532 0%, #1a5c55 45%, #2d8078 75%, #3f9087 100%); display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; padding: 120px 24px 80px; }
+        .hero { min-height: 48vh; background: linear-gradient(135deg, #0d3532 0%, #1a5c55 45%, #2d8078 75%, #3f9087 100%); display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; padding: 120px 24px 80px; }
         .hero-bg-pattern { position: absolute; inset: 0; opacity: .05; background-image: repeating-linear-gradient(45deg,#fff 0,#fff 1px,transparent 0,transparent 50%),repeating-linear-gradient(-45deg,#fff 0,#fff 1px,transparent 0,transparent 50%); background-size: 40px 40px; }
         .hero-orb { position: absolute; border-radius: 50%; background: rgba(255,255,255,0.05); animation: float 8s ease-in-out infinite; }
         .hero-orb-1 { width: 400px; height: 400px; top: -100px; right: -80px; }
         .hero-orb-2 { width: 250px; height: 250px; bottom: -60px; left: -40px; animation-delay: 3s; }
         @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-18px)} }
-        .arabic-letter { position: absolute; font-family: 'Amiri', serif; color: rgba(255,255,255,0.1); font-weight: 700; animation: floatLetter 10s ease-in-out infinite; pointer-events: none; }
-        @keyframes floatLetter { 0%,100%{transform:translateY(0) rotate(0deg)} 50%{transform:translateY(-12px) rotate(4deg)} }
-        .hero-content { position: relative; z-index: 2; text-align: center; max-width: 720px; }
+        .hero-content { position: relative; z-index: 2; text-align: center; max-width: 680px; }
         .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(201,168,76,0.2); border: 1px solid rgba(201,168,76,0.4); color: #f0d080; padding: 6px 16px; border-radius: 50px; font-size: 12px; font-weight: 600; letter-spacing: .5px; text-transform: uppercase; margin-bottom: 20px; }
-        .hero-title { font-size: clamp(34px,5.5vw,60px); font-weight: 800; color: #fff; line-height: 1.1; margin-bottom: 20px; }
+        .hero-title { font-size: clamp(30px,5vw,52px); font-weight: 800; color: #fff; line-height: 1.15; margin-bottom: 18px; }
         .hero-title .accent { color: #7dd3c9; }
-        .hero-title .gold { color: #f0d080; }
-        .hero-desc { font-size: 17px; line-height: 1.75; color: rgba(255,255,255,0.72); max-width: 560px; margin: 0 auto 32px; }
+        .hero-desc { font-size: 16px; line-height: 1.75; color: rgba(255,255,255,0.72); max-width: 520px; margin: 0 auto 28px; }
         .hero-breadcrumb { display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 13px; color: rgba(255,255,255,0.5); }
         .hero-breadcrumb a { color: rgba(255,255,255,0.6); text-decoration: none; }
         .hero-breadcrumb a:hover { color: #7dd3c9; }
 
-        /* ── Section base ── */
-        .section { padding: 80px 24px; }
+        /* ── Section ── */
+        .section { padding: 72px 24px; }
         .section-inner { max-width: 1200px; margin: 0 auto; }
 
-        /* ── Course grid ── */
-        .courses-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+        /* ── Filter bar ── */
+        .filter-bar { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 40px; }
+        .filter-chip { display: inline-flex; align-items: center; gap: 6px; padding: 7px 16px; border-radius: 50px; font-size: 13px; font-weight: 600; cursor: pointer; border: 1.5px solid #e5e7eb; background: #fff; color: #6b7280; transition: all .2s; text-decoration: none; }
+        .filter-chip:hover, .filter-chip.active { background: var(--brand); border-color: var(--brand); color: #fff; }
+        .filter-count { font-size: 11px; background: rgba(0,0,0,0.1); padding: 1px 7px; border-radius: 20px; }
+        .filter-chip.active .filter-count { background: rgba(255,255,255,0.25); }
 
-        .course-card {
-            background: #fff; border-radius: 22px;
-            box-shadow: 0 2px 16px rgba(63,144,135,0.07);
-            border: 1px solid rgba(63,144,135,0.08);
-            overflow: hidden; display: flex; flex-direction: column;
-            transition: transform .3s, box-shadow .3s;
-            position: relative;
-        }
-        .course-card:hover { transform: translateY(-6px); box-shadow: 0 16px 48px rgba(63,144,135,0.16); }
+        /* ── Grid ── */
+        .printables-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
 
-        .course-card-top {
-            background: linear-gradient(135deg, #0d3532 0%, #1a5c55 60%, #2d8078 100%);
-            padding: 28px 28px 24px; position: relative; overflow: hidden;
-        }
-        .course-card-top::before {
-            content: attr(data-arabic); font-family: 'Amiri', serif;
-            font-size: 80px; color: rgba(255,255,255,0.06);
-            position: absolute; right: 16px; bottom: -10px; line-height: 1;
-        }
-        .course-num {
-            display: inline-flex; align-items: center; justify-content: center;
-            width: 40px; height: 40px; border-radius: 12px;
-            background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15);
-            font-size: 15px; font-weight: 800; color: #7dd3c9;
-            margin-bottom: 14px; position: relative; z-index: 1;
-        }
-        .course-card-top h3 { font-size: 18px; font-weight: 700; color: #fff; margin-bottom: 6px; position: relative; z-index: 1; line-height: 1.3; }
-        .course-card-top p  { font-size: 13px; color: rgba(255,255,255,0.65); line-height: 1.5; position: relative; z-index: 1; }
+        /* ── Card ── */
+        .print-card { background: #fff; border-radius: 20px; box-shadow: 0 2px 16px rgba(63,144,135,0.07); border: 1px solid rgba(63,144,135,0.08); overflow: hidden; display: flex; flex-direction: column; transition: transform .3s, box-shadow .3s; }
+        .print-card:hover { transform: translateY(-5px); box-shadow: 0 14px 44px rgba(63,144,135,0.15); }
 
-        .course-meta {
-            display: flex; gap: 8px; flex-wrap: wrap;
-            padding: 14px 20px; background: #f8fffe;
-            border-bottom: 1px solid rgba(63,144,135,0.07);
-        }
-        .meta-chip {
-            display: inline-flex; align-items: center; gap: 5px;
-            font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 20px;
-        }
-        .meta-chip svg { width: 12px; height: 12px; flex-shrink: 0; }
-        .chip-level    { background: var(--brand-light); color: var(--brand); }
-        .chip-duration { background: var(--gold-light); color: var(--gold); }
-        .chip-age      { background: #eff6ff; color: #2563eb; }
+        .print-cover { position: relative; height: 180px; background: linear-gradient(135deg, #0d3532 0%, #1a5c55 60%, #2d8078 100%); overflow: hidden; }
+        .print-cover img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .4s; }
+        .print-card:hover .print-cover img { transform: scale(1.04); }
+        .print-cover-placeholder { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 10px; }
+        .print-cover-placeholder svg { width: 48px; height: 48px; color: rgba(255,255,255,0.35); }
+        .print-cover-placeholder span { font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.4); letter-spacing: .5px; text-transform: uppercase; }
 
-        .course-body { padding: 20px 24px; flex: 1; display: flex; flex-direction: column; gap: 16px; }
-        .course-desc { font-size: 13.5px; color: #5a7270; line-height: 1.7; }
+        .print-subject { position: absolute; top: 12px; left: 12px; background: rgba(0,0,0,0.45); backdrop-filter: blur(6px); color: #fff; font-size: 10.5px; font-weight: 700; padding: 4px 10px; border-radius: 20px; letter-spacing: .3px; text-transform: uppercase; }
 
-        .class-types { display: flex; gap: 6px; flex-wrap: wrap; }
-        .class-type-badge {
-            font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 20px;
-            background: #f3f4f6; color: #4b5563;
-        }
+        .print-body { padding: 20px 22px; flex: 1; display: flex; flex-direction: column; gap: 12px; }
+        .print-title { font-size: 16px; font-weight: 700; color: #111827; line-height: 1.35; }
+        .print-desc { font-size: 13px; color: #6b7280; line-height: 1.65; flex: 1; }
 
-        .course-actions {
-            display: flex; gap: 10px; margin-top: auto; padding-top: 4px;
-        }
-        .btn-details {
-            flex: 1; padding: 10px 0; border-radius: 10px; text-align: center;
-            font-size: 13px; font-weight: 600; text-decoration: none;
-            border: 2px solid var(--brand); color: var(--brand);
-            transition: background .15s, color .15s;
-        }
-        .btn-details:hover { background: var(--brand); color: #fff; }
-        .btn-enrol {
-            flex: 1; padding: 10px 0; border-radius: 10px; text-align: center;
-            font-size: 13px; font-weight: 600; text-decoration: none;
-            background: var(--brand); color: #fff;
-            transition: background .15s;
-        }
-        .btn-enrol:hover { background: var(--brand-dark); }
+        .print-footer { display: flex; align-items: center; justify-content: space-between; padding-top: 12px; border-top: 1px solid #f3f4f6; }
+        .dl-count { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 600; color: #9ca3af; }
+        .dl-count svg { width: 13px; height: 13px; }
+
+        .btn-download { display: inline-flex; align-items: center; gap: 7px; padding: 9px 18px; border-radius: 50px; background: var(--brand); color: #fff; font-size: 13px; font-weight: 600; text-decoration: none; transition: background .2s, transform .2s; box-shadow: 0 3px 10px rgba(63,144,135,0.3); }
+        .btn-download:hover { background: var(--brand-dark); transform: translateY(-1px); }
+        .btn-download svg { width: 14px; height: 14px; }
+
+        /* ── Empty state ── */
+        .empty-state { text-align: center; padding: 80px 20px; color: #9ca3af; }
+        .empty-state svg { width: 64px; height: 64px; margin: 0 auto 20px; color: #d1d5db; }
+        .empty-state h3 { font-size: 18px; font-weight: 600; color: #6b7280; margin-bottom: 8px; }
+        .empty-state p { font-size: 14px; }
 
         /* ── CTA ── */
         .cta-section { background: linear-gradient(135deg, var(--brand) 0%, var(--brand-dark) 100%); padding: 80px 24px; text-align: center; position: relative; overflow: hidden; }
@@ -164,8 +129,8 @@
         @keyframes pulse { 0%{transform:scale(1);opacity:.7} 100%{transform:scale(2);opacity:0} }
 
         /* ── Responsive ── */
-        @media(max-width:1024px) { .courses-grid { grid-template-columns: repeat(2, 1fr); } .footer-top { grid-template-columns: 1fr 1fr; } }
-        @media(max-width:768px)  { .nav-links,.nav-cta { display: none; } .hamburger { display: flex; } .courses-grid { grid-template-columns: 1fr; } .footer-top { grid-template-columns: 1fr; } .footer-bottom { flex-direction: column; gap: 8px; text-align: center; } }
+        @media(max-width:1024px) { .printables-grid { grid-template-columns: repeat(2,1fr); } .footer-top { grid-template-columns: 1fr 1fr; } }
+        @media(max-width:768px)  { .nav-links,.nav-cta { display: none; } .hamburger { display: flex; } .printables-grid { grid-template-columns: 1fr; } .footer-top { grid-template-columns: 1fr; } .footer-bottom { flex-direction: column; gap: 8px; text-align: center; } }
     </style>
 </head>
 <body>
@@ -185,8 +150,8 @@
         <div class="nav-links">
             <a href="{{ route('home') }}">Home</a>
             <a href="{{ route('about') }}">About Us</a>
-            <a href="{{ route('courses.index') }}" class="active">Courses</a>
-            <a href="{{ route('printables.index') }}">Printables</a>
+            <a href="{{ route('courses.index') }}">Courses</a>
+            <a href="{{ route('printables.index') }}" class="active">Printables</a>
             <a href="{{ route('home') }}#contact">Contact</a>
         </div>
         <a href="{{ route('get-started') }}" class="nav-cta">Get Started</a>
@@ -199,103 +164,129 @@
     <div class="hero-bg-pattern"></div>
     <div class="hero-orb hero-orb-1"></div>
     <div class="hero-orb hero-orb-2"></div>
-    <span class="arabic-letter" style="font-size:72px;top:18%;left:5%;animation-delay:0s;">ع</span>
-    <span class="arabic-letter" style="font-size:52px;top:65%;left:4%;animation-delay:2s;">ل</span>
-    <span class="arabic-letter" style="font-size:64px;top:22%;right:5%;animation-delay:1s;">م</span>
-    <span class="arabic-letter" style="font-size:44px;bottom:18%;right:7%;animation-delay:3s;">ق</span>
-
     <div class="hero-content">
         <div class="hero-badge">
-            <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"/>
             </svg>
-            Islamic Education Programmes
+            Free Downloads
         </div>
-        <h1 class="hero-title">
-            Our <span class="accent">7 Courses</span> for<br>
-            <span class="gold">Growing Minds</span>
-        </h1>
-        <p class="hero-desc">
-            From Quran recitation to Arabic language and Islamic character-building —
-            each course is thoughtfully designed for children at every stage of their learning journey.
-        </p>
+        <h1 class="hero-title">Islamic Study <span class="accent">Printables</span></h1>
+        <p class="hero-desc">Download free worksheets, activity sheets, and study materials to support your child's Islamic education at home.</p>
         <div class="hero-breadcrumb">
             <a href="{{ route('home') }}">Home</a>
-            <span>/</span>
-            <span style="color:rgba(255,255,255,0.9);">Courses</span>
+            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"/></svg>
+            <span>Printables</span>
         </div>
     </div>
 </section>
 
-{{-- Courses Grid --}}
+{{-- Materials --}}
 <section class="section" style="background:#f8fffe;">
     <div class="section-inner">
+
         @php
-            $arabicNumerals = ['١', '٢', '٣', '٤', '٥', '٦', '٧'];
-            $classTypeLabels = ['one_on_one' => 'One-on-One', 'group' => 'Group', 'online' => 'Online'];
+            $subjects = $printables->pluck('subject')->filter()->unique()->sort()->values();
+            $activeFilter = request('subject');
         @endphp
-        <div class="courses-grid">
-            @foreach ($courses as $course)
-                <div class="course-card">
-                    <div class="course-card-top" data-arabic="{{ $arabicNumerals[$loop->index] ?? '' }}">
-                        <div class="course-num">{{ str_pad($course->order, 2, '0', STR_PAD_LEFT) }}</div>
-                        <h3>{{ $course->name }}</h3>
-                        <p>{{ $course->tagline }}</p>
-                    </div>
 
-                    <div class="course-meta">
-                        <span class="meta-chip chip-level">
-                            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z"/>
-                            </svg>
-                            {{ $course->level }}
-                        </span>
-                        <span class="meta-chip chip-duration">
-                            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                            </svg>
-                            {{ $course->duration }}
-                        </span>
-                        <span class="meta-chip chip-age">
-                            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"/>
-                            </svg>
-                            Age {{ $course->age_group }}
-                        </span>
-                    </div>
+        @if($subjects->count() > 1)
+            <div class="filter-bar">
+                <a href="{{ route('printables.index') }}"
+                   class="filter-chip {{ !$activeFilter ? 'active' : '' }}">
+                    All
+                    <span class="filter-count">{{ $printables->count() }}</span>
+                </a>
+                @foreach($subjects as $subject)
+                    @php $count = $printables->where('subject', $subject)->count(); @endphp
+                    <a href="{{ route('printables.index', ['subject' => $subject]) }}"
+                       class="filter-chip {{ $activeFilter === $subject ? 'active' : '' }}">
+                        {{ $subject }}
+                        <span class="filter-count">{{ $count }}</span>
+                    </a>
+                @endforeach
+            </div>
+        @endif
 
-                    <div class="course-body">
-                        <p class="course-desc">{{ Str::limit($course->description, 140) }}</p>
+        @php
+            $displayed = $activeFilter
+                ? $printables->where('subject', $activeFilter)->values()
+                : $printables;
+        @endphp
 
-                        <div class="class-types">
-                            @foreach ($course->class_types as $type)
-                                <span class="class-type-badge">{{ $classTypeLabels[$type] ?? $type }}</span>
-                            @endforeach
+        @if($displayed->isEmpty())
+            <div class="empty-state">
+                <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"/>
+                </svg>
+                <h3>No materials available yet</h3>
+                <p>Check back soon — new resources are added regularly.</p>
+            </div>
+        @else
+            <div class="printables-grid">
+                @foreach($displayed as $printable)
+                    <div class="print-card">
+                        <div class="print-cover">
+                            @if($printable->cover_image)
+                                <img src="{{ Storage::url($printable->cover_image) }}" alt="{{ $printable->title }}">
+                            @else
+                                <div class="print-cover-placeholder">
+                                    <svg fill="none" stroke="currentColor" stroke-width="1.2" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"/>
+                                    </svg>
+                                    <span>PDF</span>
+                                </div>
+                            @endif
+                            @if($printable->subject)
+                                <span class="print-subject">{{ $printable->subject }}</span>
+                            @endif
                         </div>
 
-                        <div class="course-actions">
-                            <a href="{{ route('courses.show', $course->slug) }}" class="btn-details">View Details</a>
-                            <a href="{{ route('get-started') }}?program={{ urlencode($course->name) }}" class="btn-enrol">Enrol Now</a>
+                        <div class="print-body">
+                            <div class="print-title">{{ $printable->title }}</div>
+                            @if($printable->description)
+                                <div class="print-desc">{{ Str::limit($printable->description, 100) }}</div>
+                            @endif
+
+                            <div class="print-footer">
+                                <div class="dl-count">
+                                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"/>
+                                    </svg>
+                                    {{ number_format($printable->download_count) }} {{ $printable->download_count === 1 ? 'download' : 'downloads' }}
+                                </div>
+                                <a href="{{ route('printables.download', $printable->id) }}" class="btn-download">
+                                    <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"/>
+                                    </svg>
+                                    Download PDF
+                                </a>
+                            </div>
                         </div>
                     </div>
-                </div>
-            @endforeach
-        </div>
+                @endforeach
+            </div>
+        @endif
     </div>
 </section>
 
 {{-- CTA --}}
 <section class="cta-section">
-    <h2>Not Sure Which Course to Choose?</h2>
-    <p>Submit an enquiry and our team will guide your child to the perfect programme, In sha Allah.</p>
+    <h2>Ready to Begin Your Child's Journey?</h2>
+    <p>Enrol in one of our structured Islamic courses for a complete learning experience.</p>
     <div class="cta-btns">
-        <a href="{{ route('get-started') }}" class="btn-primary">
+        <a href="{{ route('courses.index') }}" class="btn-primary">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489"/>
+            </svg>
+            View Courses
+        </a>
+        <a href="{{ route('get-started') }}" class="btn-outline">
+            Get Started Today
             <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75"/>
             </svg>
-            Submit Enquiry
         </a>
-        <a href="{{ route('about') }}" class="btn-outline">Learn About Us</a>
     </div>
 </section>
 
@@ -304,26 +295,24 @@
     <div class="footer-inner">
         <div class="footer-top">
             <div class="footer-brand">
-                <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
-                    <div style="width:36px;height:36px;border-radius:10px;background:var(--brand);display:flex;align-items:center;justify-content:center;overflow:hidden;">
-                        <img src="{{ asset('images/logo.webp') }}" alt="" style="width:100%;height:100%;object-fit:contain;">
-                    </div>
-                    <strong>Nabaath Learning Point</strong>
-                </div>
-                <p>An Islamic-based learning institution for kids, nurturing young minds with Quran, Arabic, and Islamic studies in a loving and structured environment.</p>
+                <strong>Nabaath Learning Point</strong>
+                <span style="font-family:'Amiri',serif;font-size:18px;color:var(--brand-mid);">نبات</span>
+                <p>Nurturing young hearts and minds through authentic Islamic education, one lesson at a time.</p>
             </div>
             <div class="footer-col">
                 <h4>Quick Links</h4>
                 <a href="{{ route('home') }}">Home</a>
                 <a href="{{ route('about') }}">About Us</a>
-                <a href="{{ route('courses.index') }}">Our Courses</a>
-                <a href="{{ route('home') }}#founders">Founders</a>
+                <a href="{{ route('courses.index') }}">Courses</a>
+                <a href="{{ route('printables.index') }}">Printables</a>
             </div>
             <div class="footer-col">
                 <h4>Courses</h4>
-                @foreach($courses as $c)
-                    <a href="{{ route('courses.show', $c->slug) }}">{{ $c->name }}</a>
-                @endforeach
+                <a href="{{ route('courses.index') }}">Quran Recitation</a>
+                <a href="{{ route('courses.index') }}">Hifz ul Quran</a>
+                <a href="{{ route('courses.index') }}">Tajweed</a>
+                <a href="{{ route('courses.index') }}">Arabic Language</a>
+                <a href="{{ route('courses.index') }}">Islamic Studies</a>
             </div>
             <div class="footer-col">
                 <h4>Contact</h4>
@@ -365,6 +354,7 @@
     window.addEventListener('scroll', () => {
         document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 20);
     });
+
     let menuOpen = false;
     function toggleMenu() {
         menuOpen = !menuOpen;
@@ -373,7 +363,13 @@
                 const menu = document.createElement('div');
                 menu.id = 'mobile-menu';
                 menu.style.cssText = 'position:fixed;top:72px;left:0;right:0;background:#fff;padding:20px 24px;border-bottom:1px solid rgba(63,144,135,0.15);box-shadow:0 8px 24px rgba(63,144,135,0.12);z-index:999;display:flex;flex-direction:column;gap:4px;';
-                [['Home','{{ route("home") }}'],['About Us','{{ route("about") }}'],['Courses','{{ route("courses.index") }}'],['Contact','{{ route("home") }}#contact']].forEach(([label,href]) => {
+                [
+                    ['Home', '{{ route("home") }}'],
+                    ['About Us', '{{ route("about") }}'],
+                    ['Courses', '{{ route("courses.index") }}'],
+                    ['Printables', '{{ route("printables.index") }}'],
+                    ['Contact', '{{ route("home") }}#contact']
+                ].forEach(([label, href]) => {
                     const a = document.createElement('a');
                     a.href = href; a.textContent = label;
                     a.style.cssText = 'padding:12px 0;font-size:15px;font-weight:500;color:#1a2e2c;text-decoration:none;border-bottom:1px solid #f0faf9;';

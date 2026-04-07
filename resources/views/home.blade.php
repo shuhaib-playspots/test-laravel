@@ -546,7 +546,7 @@
         <div class="nav-links">
             <a href="{{ route('about') }}">About Us</a>
             <a href="{{ route('courses.index') }}">Courses</a>
-            <a href="#classes">Our Classes</a>
+            <a href="{{ route('printables.index') }}">Printables</a>
             <a href="#programs">Programs</a>
             <a href="#contact">Contact</a>
         </div>
