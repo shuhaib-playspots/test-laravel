@@ -546,6 +546,7 @@
         <div class="nav-links">
             <a href="{{ route('about') }}">About Us</a>
             <a href="{{ route('courses.index') }}">Courses</a>
+            <a href="{{ route('gallery.index') }}">Gallery</a>
             <a href="{{ route('printables.index') }}">Printables</a>
             <a href="#programs">Programs</a>
             <a href="#contact">Contact</a>
@@ -1129,8 +1130,14 @@
                     box-shadow:0 8px 24px rgba(63,144,135,0.12);
                     z-index:999;display:flex;flex-direction:column;gap:4px;
                 `;
-                ['About Us:#about','Our Classes:#classes','Programs:#programs','Founders:#founders','Contact:#contact'].forEach(item => {
-                    const [label, href] = item.split(':');
+                [
+                    ['About Us', '#about'],
+                    ['Courses', '{{ route("courses.index") }}'],
+                    ['Gallery', '{{ route("gallery.index") }}'],
+                    ['Printables', '{{ route("printables.index") }}'],
+                    ['Programs', '#programs'],
+                    ['Contact', '#contact'],
+                ].forEach(([label, href]) => {
                     const a = document.createElement('a');
                     a.href = href; a.textContent = label;
                     a.style.cssText = 'padding:12px 0;font-size:15px;font-weight:500;color:#1a2e2c;text-decoration:none;border-bottom:1px solid #f0faf9;';

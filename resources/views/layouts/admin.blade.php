@@ -104,6 +104,7 @@
             $inAdmissions  = request()->routeIs('admin.admissions.*');
             $inCourses     = request()->routeIs('admin.courses.*');
             $inPrintables  = request()->routeIs('admin.printables.*');
+            $inGallery     = request()->routeIs('admin.gallery.*');
         @endphp
         <div class="sidebar-nav">
             <div class="sidebar-section-label">Menu</div>
@@ -161,6 +162,30 @@
                     <a href="{{ route('admin.printables.create') }}"
                        class="nav-sub-item {{ request()->routeIs('admin.printables.create') ? 'active' : '' }}">
                         Upload Material
+                    </a>
+                </div>
+            </div>
+
+            {{-- Gallery accordion --}}
+            <div class="nav-group {{ $inGallery ? 'open' : '' }}" id="group-gallery">
+                <button type="button" class="nav-group-toggle" onclick="toggleGroup('group-gallery')">
+                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                              d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"/>
+                    </svg>
+                    Gallery
+                    <svg class="nav-chevron" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"/>
+                    </svg>
+                </button>
+                <div class="nav-submenu">
+                    <a href="{{ route('admin.gallery.index') }}"
+                       class="nav-sub-item {{ request()->routeIs('admin.gallery.index') || request()->routeIs('admin.gallery.edit') ? 'active' : '' }}">
+                        All Photos
+                    </a>
+                    <a href="{{ route('admin.gallery.create') }}"
+                       class="nav-sub-item {{ request()->routeIs('admin.gallery.create') ? 'active' : '' }}">
+                        Upload Photo
                     </a>
                 </div>
             </div>
