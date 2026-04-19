@@ -1,0 +1,133 @@
+/* ── CSS Variables ── */
+:root {
+    --brand:       #3f9087;
+    --brand-dark:  #2d6e67;
+    --brand-light: #e8f5f4;
+    --brand-mid:   #5aada3;
+    --gold:        #c9a84c;
+    --gold-light:  #fdf4e0;
+}
+
+/* ── Base Reset ── */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Inter', sans-serif; color: #1a2e2c; overflow-x: hidden; }
+
+/* ── Navbar ── */
+.navbar {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(63,144,135,0.12);
+    transition: box-shadow .3s;
+}
+.navbar.scrolled { box-shadow: 0 4px 24px rgba(63,144,135,0.15); }
+
+.nav-inner {
+    max-width: 1200px; margin: 0 auto;
+    padding: 0 24px;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 72px;
+}
+
+.nav-logo {
+    height: 100%;
+    display: flex; align-items: center;
+    text-decoration: none;
+}
+.nav-logo-container {
+    height: 100%;
+    display: flex; align-items: center;
+}
+.nav-logo-container img {
+    height: 52px;
+    padding: 6px 0;
+    object-fit: contain;
+}
+
+.nav-links { display: flex; align-items: center; gap: 32px; }
+.nav-links a {
+    font-size: 14px; font-weight: 500; color: #4a5568;
+    text-decoration: none; transition: color .2s;
+    position: relative;
+}
+.nav-links a:hover { color: var(--brand); }
+.nav-links a.active { color: var(--brand); }
+.nav-links a.active::after {
+    content: '';
+    position: absolute; bottom: -4px; left: 0; right: 0;
+    height: 2px; border-radius: 2px;
+    background: var(--brand);
+}
+
+.nav-cta {
+    background: var(--brand); color: #fff;
+    padding: 10px 22px; border-radius: 50px;
+    font-size: 14px; font-weight: 600;
+    text-decoration: none;
+    transition: background .2s, transform .2s, box-shadow .2s;
+    box-shadow: 0 4px 14px rgba(63,144,135,0.35);
+}
+.nav-cta:hover {
+    background: var(--brand-dark);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(63,144,135,0.4);
+}
+
+.hamburger {
+    display: none; flex-direction: column;
+    gap: 5px; cursor: pointer; padding: 4px;
+}
+.hamburger span {
+    width: 24px; height: 2px;
+    background: var(--brand); border-radius: 2px; transition: all .3s;
+}
+
+/* ── Floating Buttons ── */
+.float-btn {
+    position: fixed; bottom: 100px; z-index: 999;
+    display: flex; flex-direction: column; align-items: center; gap: 6px;
+}
+.float-btn.right { right: 24px; }
+.float-btn.left  { left: 24px; }
+
+.float-circle {
+    width: 56px; height: 56px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    text-decoration: none; transition: all .3s;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+    position: relative;
+}
+.float-circle.get-started { background: var(--brand); }
+.float-circle.call-btn    { background: #25d366; }
+.float-circle:hover { transform: scale(1.1) translateY(-2px); box-shadow: 0 10px 28px rgba(0,0,0,0.3); }
+
+.float-label {
+    font-size: 10px; font-weight: 600; color: #fff;
+    background: rgba(0,0,0,0.6); padding: 3px 8px;
+    border-radius: 10px; white-space: nowrap;
+    backdrop-filter: blur(4px);
+}
+
+.float-pulse {
+    position: absolute; border-radius: 50%;
+    animation: pulse 2s ease-out infinite;
+}
+.float-circle.get-started .float-pulse { background: var(--brand); width: 56px; height: 56px; }
+.float-circle.call-btn    .float-pulse { background: #25d366; width: 56px; height: 56px; }
+
+@keyframes pulse {
+    0%   { transform: scale(1); opacity: .7; }
+    100% { transform: scale(2); opacity: 0; }
+}
+
+/* ── Responsive Navbar ── */
+@media (max-width: 768px) {
+    .nav-links, .nav-cta { display: none; }
+    .hamburger { display: flex; }
+}
+@media (max-width: 480px) {
+    .float-btn { bottom: 80px; }
+    .float-circle { width: 50px; height: 50px; }
+}

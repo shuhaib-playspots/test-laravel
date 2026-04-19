@@ -7,41 +7,8 @@
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=inter:300,400,500,600,700,800|amiri:400,700" rel="stylesheet"/>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <link rel="stylesheet" href="{{ asset('css/layout.css') }}">
     <style>
-        :root {
-            --brand:       #3f9087;
-            --brand-dark:  #2d6e67;
-            --brand-light: #e8f5f4;
-            --brand-mid:   #5aada3;
-            --gold:        #c9a84c;
-            --gold-light:  #fdf4e0;
-        }
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        html { scroll-behavior: smooth; }
-        body { font-family: 'Inter', sans-serif; color: #1a2e2c; background: #f7fafa; overflow-x: hidden; }
-
-        /* ── Navbar ── */
-        .navbar {
-            position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-            background: rgba(255,255,255,0.96);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(63,144,135,0.12);
-            box-shadow: 0 2px 16px rgba(63,144,135,0.08);
-        }
-        .nav-inner {
-            max-width: 1200px; margin: 0 auto;
-            padding: 0 24px;
-            display: flex; align-items: center; justify-content: space-between;
-            height: 68px;
-        }
-        .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
-        .nav-logo-icon {
-            width: 38px; height: 38px; border-radius: 10px;
-            background: var(--brand);
-            display: flex; align-items: center; justify-content: center;
-        }
-        .nav-logo-text strong { display: block; font-size: 15px; font-weight: 700; color: var(--brand-dark); }
-        .nav-logo-text span   { font-size: 10px; color: #888; letter-spacing: .5px; text-transform: uppercase; }
         .nav-back {
             display: inline-flex; align-items: center; gap: 6px;
             color: var(--brand); font-size: 14px; font-weight: 600;
@@ -283,28 +250,7 @@
 <body>
 
 {{-- ── NAVBAR ── --}}
-<nav class="navbar">
-    <div class="nav-inner">
-        <a href="{{ route('home') }}" class="nav-logo">
-            <div class="nav-logo-icon">
-                <svg width="20" height="20" fill="none" stroke="#fff" stroke-width="2.2" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                          d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0118 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25"/>
-                </svg>
-            </div>
-            <div class="nav-logo-text">
-                <strong>Nabaath</strong>
-                <span>Learning Point</span>
-            </div>
-        </a>
-        <a href="{{ route('home') }}" class="nav-back">
-            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"/>
-            </svg>
-            Back to Home
-        </a>
-    </div>
-</nav>
+@include('nav-bar')
 
 {{-- ── PAGE HERO ── --}}
 <section class="page-hero">

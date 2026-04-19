@@ -7,31 +7,9 @@
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=inter:300,400,500,600,700,800,900|amiri:400,700" rel="stylesheet"/>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <link rel="stylesheet" href="{{ asset('css/layout.css') }}">
     <style>
-        :root {
-            --brand: #3f9087; --brand-dark: #2d6e67; --brand-light: #e8f5f4;
-            --brand-mid: #5aada3; --gold: #c9a84c; --gold-light: #fdf4e0;
-        }
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        html { scroll-behavior: smooth; }
-        body { font-family: 'Inter', sans-serif; color: #1a2e2c; overflow-x: hidden; }
 
-        /* ── Navbar ── */
-        .navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(255,255,255,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(63,144,135,0.12); transition: box-shadow .3s; }
-        .navbar.scrolled { box-shadow: 0 4px 24px rgba(63,144,135,0.15); }
-        .nav-inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 72px; }
-        .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
-        .nav-logo-icon { width: 42px; height: 42px; border-radius: 12px; background: var(--brand); display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(63,144,135,0.35); overflow: hidden; }
-        .nav-logo-icon img { width: 100%; height: 100%; object-fit: contain; }
-        .nav-logo-text strong { display: block; font-size: 16px; font-weight: 700; color: var(--brand-dark); }
-        .nav-logo-text span { font-size: 10px; font-weight: 500; color: #888; letter-spacing: .5px; text-transform: uppercase; }
-        .nav-links { display: flex; align-items: center; gap: 32px; }
-        .nav-links a { font-size: 14px; font-weight: 500; color: #4a5568; text-decoration: none; transition: color .2s; }
-        .nav-links a:hover, .nav-links a.active { color: var(--brand); }
-        .nav-cta { background: var(--brand); color: #fff; padding: 10px 22px; border-radius: 50px; font-size: 14px; font-weight: 600; text-decoration: none; transition: background .2s, transform .2s; box-shadow: 0 4px 14px rgba(63,144,135,0.35); }
-        .nav-cta:hover { background: var(--brand-dark); transform: translateY(-1px); }
-        .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
-        .hamburger span { width: 24px; height: 2px; background: var(--brand); border-radius: 2px; }
 
         /* ── Hero ── */
         .hero { min-height: 48vh; background: linear-gradient(135deg, #0d3532 0%, #1a5c55 45%, #2d8078 75%, #3f9087 100%); display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; padding: 120px 24px 80px; }
@@ -158,31 +136,7 @@
 </head>
 <body>
 
-{{-- Navbar --}}
-<nav class="navbar" id="navbar">
-    <div class="nav-inner">
-        <a href="{{ route('home') }}" class="nav-logo">
-            <div class="nav-logo-icon">
-                <img src="{{ asset('images/logo.webp') }}" alt="Nabaath">
-            </div>
-            <div class="nav-logo-text">
-                <strong>Nabaath</strong>
-                <span>Learning Point</span>
-            </div>
-        </a>
-        <div class="nav-links">
-            <a href="{{ route('home') }}">Home</a>
-            <a href="{{ route('about') }}">About Us</a>
-            <a href="{{ route('courses.index') }}">Courses</a>
-            <a href="{{ route('gallery.index') }}">Gallery</a>
-            <a href="{{ route('printables.index') }}">Printables</a>
-            <a href="{{ route('careers.index') }}" class="active">Careers</a>
-            <a href="{{ route('home') }}#contact">Contact</a>
-        </div>
-        <a href="{{ route('get-started') }}" class="nav-cta">Get Started</a>
-        <div class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
-    </div>
-</nav>
+@include('nav-bar')
 
 {{-- Hero --}}
 <section class="hero">
@@ -404,51 +358,5 @@
     <span class="float-label">Call Us</span>
 </div>
 
-<script>
-    window.addEventListener('scroll', () => {
-        document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 20);
-    });
-
-    let menuOpen = false;
-    function toggleMenu() {
-        menuOpen = !menuOpen;
-        if (menuOpen) {
-            if (!document.getElementById('mobile-menu')) {
-                const menu = document.createElement('div');
-                menu.id = 'mobile-menu';
-                menu.style.cssText = 'position:fixed;top:72px;left:0;right:0;background:#fff;padding:20px 24px;border-bottom:1px solid rgba(63,144,135,0.15);box-shadow:0 8px 24px rgba(63,144,135,0.12);z-index:999;display:flex;flex-direction:column;gap:4px;';
-                [
-                    ['Home', '{{ route("home") }}'],
-                    ['About Us', '{{ route("about") }}'],
-                    ['Courses', '{{ route("courses.index") }}'],
-                    ['Gallery', '{{ route("gallery.index") }}'],
-                    ['Printables', '{{ route("printables.index") }}'],
-                    ['Careers', '{{ route("careers.index") }}'],
-                    ['Contact', '{{ route("home") }}#contact'],
-                ].forEach(([label, href]) => {
-                    const a = document.createElement('a');
-                    a.href = href; a.textContent = label;
-                    a.style.cssText = 'padding:12px 0;font-size:15px;font-weight:500;color:#1a2e2c;text-decoration:none;border-bottom:1px solid #f0faf9;';
-                    a.onclick = () => { document.getElementById('mobile-menu').remove(); menuOpen = false; };
-                    menu.appendChild(a);
-                });
-                const btn = document.createElement('a');
-                btn.href = '{{ route("get-started") }}'; btn.textContent = 'Get Started';
-                btn.style.cssText = 'margin-top:12px;text-align:center;background:#3f9087;color:#fff;padding:12px;border-radius:50px;font-weight:600;font-size:14px;text-decoration:none;';
-                menu.appendChild(btn);
-                document.body.appendChild(menu);
-            }
-        } else { const m = document.getElementById('mobile-menu'); if (m) m.remove(); }
-    }
-
-    function toggleReq(index) {
-        const body = document.getElementById('req-' + index);
-        const btn  = body.previousElementSibling;
-        body.classList.toggle('open');
-        btn.classList.toggle('open');
-        btn.querySelector('span') && (btn.querySelector('span').textContent =
-            body.classList.contains('open') ? 'Hide Requirements' : 'View Requirements');
-    }
-</script>
 </body>
 </html>
