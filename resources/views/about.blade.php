@@ -736,49 +736,7 @@
 </section>
 
 {{-- ── FOOTER ── --}}
-<footer class="footer">
-    <div class="footer-inner">
-        <div class="footer-top">
-            <div class="footer-brand">
-                <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
-                    <div style="width:36px;height:36px;border-radius:10px;background:var(--brand);display:flex;align-items:center;justify-content:center;overflow:hidden;">
-                        <img src="{{ asset('images/logo.webp') }}" alt="" style="width:100%;height:100%;object-fit:contain;">
-                    </div>
-                    <strong>Nabaath Learning Point</strong>
-                </div>
-                <p>An Islamic-based learning institution for kids, nurturing young minds with Quran, Arabic, and Islamic studies in a loving and structured environment.</p>
-            </div>
-            <div class="footer-col">
-                <h4>Quick Links</h4>
-                <a href="{{ route('home') }}">Home</a>
-                <a href="{{ route('about') }}">About Us</a>
-                <a href="{{ route('home') }}#classes">Our Classes</a>
-                <a href="{{ route('home') }}#programs">Programs</a>
-                <a href="{{ route('home') }}#founders">Founders</a>
-            </div>
-            <div class="footer-col">
-                <h4>Programs</h4>
-                <a href="{{ route('home') }}#programs">Quran Recitation</a>
-                <a href="{{ route('home') }}#programs">Hifz ul Quran</a>
-                <a href="{{ route('home') }}#programs">Arabic Language</a>
-                <a href="{{ route('home') }}#programs">Islamic Studies</a>
-                <a href="{{ route('home') }}#programs">Duas &amp; Adhkar</a>
-            </div>
-            <div class="footer-col">
-                <h4>Contact</h4>
-                <a href="tel:+1234567890">+1 234 567 890</a>
-                <a href="mailto:info@nabaath.com">info@nabaath.com</a>
-                <a href="#">WhatsApp Us</a>
-                <a href="#">Facebook</a>
-                <a href="#">Instagram</a>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <span>&copy; {{ date('Y') }} Nabaath Learning Point. All rights reserved.</span>
-            <span style="font-family:'Amiri',serif;font-size:16px;color:rgba(255,255,255,0.3);">نبات</span>
-        </div>
-    </div>
-</footer>
+@include('footer')
 
 {{-- ── FLOATING BUTTONS ── --}}
 <div class="float-btn right">
@@ -801,6 +759,6 @@
     <span class="float-label">Call Us</span>
 </div>
 
-
+<script src="{{ asset('js/common.js') }}"></script>
 </body>
 </html>

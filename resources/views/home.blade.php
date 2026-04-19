@@ -1,20 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nabaath Learning Point &mdash; Islamic Education for Kids</title>
-    <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=inter:300,400,500,600,700,800,900|amiri:400,700" rel="stylesheet"/>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <link rel="stylesheet" href="{{ asset('css/layout.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/home.css') }}">
-</head>
-<body>
+@extends('layout')
+@section('css')
+<link rel="stylesheet" href="{{ asset('css/home.css') }}">
+@endsection
 
-{{-- ── NAVBAR ── --}}
-@include('nav-bar')
-
+@section('content')
 {{-- ── HERO ── --}}
 <section class="hero" id="home">
     <div class="hero-bg-pattern"></div>
@@ -78,11 +67,9 @@
 
         <div class="hero-visual">
             <div class="hero-card-stack">
-                <div class="hero-main-card">
-                    <div class="hero-card-icon">&#x646;</div>
-                    <div class="hero-card-tag">Est. with Love</div>
-                    <div class="hero-card-label">Nabaath Learning Point</div>
-                    <div class="hero-card-sub">Guiding young minds through the light of Islamic knowledge and the beauty of the Quran.</div>
+                <div class="hero-main-card" style="padding:0;overflow:hidden;">
+                    <img src="{{ asset('images/image1.png') }}" alt="Nabaath Learning Point"
+                         style="width:100%;height:100%;object-fit:cover;border-radius:28px;">
                 </div>
                 <div class="hero-float-badge hero-float-badge-1">
                     <div class="hfb-icon" style="background:#e8f5f4;">
@@ -490,55 +477,7 @@
 </section>
 
 {{-- ── FOOTER ── --}}
-<footer class="footer" id="footer">
-    <div class="footer-inner">
-        <div class="footer-top">
-            <div class="footer-brand">
-                <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
-                    <div style="width:36px;height:36px;border-radius:10px;background:var(--brand);display:flex;align-items:center;justify-content:center;">
-                        <svg width="18" height="18" fill="none" stroke="#fff" stroke-width="2" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0118 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25"/>
-                        </svg>
-                    </div>
-                    <strong>Nabaath Learning Point</strong>
-                </div>
-                <p>An Islamic-based learning institution for kids, nurturing young minds with Quran, Arabic, and Islamic studies in a loving and structured environment.</p>
-            </div>
-
-            <div class="footer-col">
-                <h4>Quick Links</h4>
-                <a href="#nabaath">What is Nabaath</a>
-                <a href="#classes">Our Classes</a>
-                <a href="#about">About Us</a>
-                <a href="#programs">Programs</a>
-                <a href="#founders">Founders</a>
-            </div>
-
-            <div class="footer-col">
-                <h4>Programs</h4>
-                <a href="#programs">Quran Recitation</a>
-                <a href="#programs">Hifz ul Quran</a>
-                <a href="#programs">Arabic Language</a>
-                <a href="#programs">Islamic Studies</a>
-                <a href="#programs">Duas &amp; Adhkar</a>
-            </div>
-
-            <div class="footer-col">
-                <h4>Contact</h4>
-                <a href="tel:+1234567890">+1 234 567 890</a>
-                <a href="mailto:info@nabaath.com">info@nabaath.com</a>
-                <a href="#">WhatsApp Us</a>
-                <a href="#">Facebook</a>
-                <a href="#">Instagram</a>
-            </div>
-        </div>
-
-        <div class="footer-bottom">
-            <span>&copy; {{ date('Y') }} Nabaath Learning Point. All rights reserved.</span>
-            <span style="font-family:'Amiri',serif;font-size:16px;color:rgba(255,255,255,0.3);">نبات</span>
-        </div>
-    </div>
-</footer>
+@include('footer')
 
 {{-- ── FLOATING BUTTONS ── --}}
 <div class="float-btn right">
@@ -561,86 +500,4 @@
     <span class="float-label">Call Us</span>
 </div>
 
-<script>
-    // Navbar scroll effect
-    window.addEventListener('scroll', () => {
-        document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 20);
-    });
-
-    // Mobile menu toggle
-    let menuOpen = false;
-    function toggleMenu() {
-        menuOpen = !menuOpen;
-        const links = document.querySelector('.nav-links');
-        const cta   = document.querySelector('.nav-cta');
-        if (menuOpen) {
-            // Simple inline menu for mobile
-            if (!document.getElementById('mobile-menu')) {
-                const menu = document.createElement('div');
-                menu.id = 'mobile-menu';
-                menu.style.cssText = `
-                    position:fixed;top:72px;left:0;right:0;
-                    background:#fff;padding:20px 24px;
-                    border-bottom:1px solid rgba(63,144,135,0.15);
-                    box-shadow:0 8px 24px rgba(63,144,135,0.12);
-                    z-index:999;display:flex;flex-direction:column;gap:4px;
-                `;
-                [
-                    ['About Us', '#about'],
-                    ['Courses', '{{ route("courses.index") }}'],
-                    ['Gallery', '{{ route("gallery.index") }}'],
-                    ['Printables', '{{ route("printables.index") }}'],
-                    ['Careers', '{{ route("careers.index") }}'],
-                    ['Programs', '#programs'],
-                    ['Contact', '#contact'],
-                ].forEach(([label, href]) => {
-                    const a = document.createElement('a');
-                    a.href = href; a.textContent = label;
-                    a.style.cssText = 'padding:12px 0;font-size:15px;font-weight:500;color:#1a2e2c;text-decoration:none;border-bottom:1px solid #f0faf9;';
-                    a.onclick = () => { document.getElementById('mobile-menu').remove(); menuOpen = false; };
-                    menu.appendChild(a);
-                });
-                const btn = document.createElement('a');
-                btn.href='#contact'; btn.textContent='Get Started';
-                btn.style.cssText='margin-top:12px;text-align:center;background:#3f9087;color:#fff;padding:12px;border-radius:50px;font-weight:600;font-size:14px;text-decoration:none;';
-                btn.onclick = () => { document.getElementById('mobile-menu').remove(); menuOpen = false; };
-                menu.appendChild(btn);
-                document.body.appendChild(menu);
-            }
-        } else {
-            const m = document.getElementById('mobile-menu');
-            if (m) m.remove();
-        }
-    }
-
-    // Smooth scroll for anchors
-    document.querySelectorAll('a[href^="#"]').forEach(a => {
-        a.addEventListener('click', e => {
-            const target = document.querySelector(a.getAttribute('href'));
-            if (target) {
-                e.preventDefault();
-                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
-        });
-    });
-
-    // Scroll reveal animation
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
-            }
-        });
-    }, { threshold: 0.1 });
-
-    document.querySelectorAll('.program-card, .class-card, .founder-card, .what-pill, .about-value').forEach(el => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(24px)';
-        el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-        observer.observe(el);
-    });
-</script>
-
-</body>
-</html>
+@endsection

@@ -13,7 +13,7 @@
             <a href="{{ route('printables.index') }}" @class(['active' => request()->routeIs('printables.*')])>Printables</a>
             <a href="{{ route('careers.index') }}"   @class(['active' => request()->routeIs('careers.*')])>Careers</a>
             <a href="{{ route('home') }}#programs">Programs</a>
-            <a href="{{ route('home') }}#contact">Contact</a>
+            <a href="{{ route('contact') }}" @class(['active' => request()->routeIs('contact')])>Contact</a>
         </div>
 
         <a href="{{ route('get-started') }}" class="nav-cta">Get Started</a>
@@ -44,7 +44,7 @@
                     ['Printables',  '{{ route("printables.index") }}'],
                     ['Careers',     '{{ route("careers.index") }}'],
                     ['Programs',    '{{ route("home") }}#programs'],
-                    ['Contact',     '{{ route("home") }}#contact'],
+                    ['Contact',     '{{ route("contact") }}'],
                 ].forEach(([label, href]) => {
                     const a = document.createElement('a');
                     a.href = href; a.textContent = label;

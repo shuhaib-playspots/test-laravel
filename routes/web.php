@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\GalleryController as AdminGalleryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\CareerController as AdminCareerController;
 use App\Http\Controllers\CareerController;
+use App\Http\Controllers\ContactController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -35,6 +36,10 @@ Route::get('/printables/{id}/download', [PrintableController::class, 'download']
 
 // Careers
 Route::get('/careers', [CareerController::class, 'index'])->name('careers.index');
+
+// Contact
+Route::get('/contact', [ContactController::class, 'show'])->name('contact');
+Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 
 // Get Started / Admission
 Route::get('/get-started', [AdmissionController::class, 'show'])->name('get-started');

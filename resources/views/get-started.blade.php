@@ -559,6 +559,7 @@
     <span class="float-label">Call Us</span>
 </div>
 
+<script src="{{ asset('js/common.js') }}"></script>
 <script>
     function selectRadio(el, groupId, name, value) {
         document.querySelectorAll('#' + groupId + ' .radio-option').forEach(o => o.classList.remove('selected'));
@@ -566,26 +567,6 @@
         el.querySelector('input[type="radio"]').checked = true;
     }
 
-    // Animate steps on scroll
-    const stepObserver = new IntersectionObserver(entries => {
-        entries.forEach((e, i) => {
-            if (e.isIntersecting) {
-                setTimeout(() => {
-                    e.target.style.opacity = '1';
-                    e.target.style.transform = 'translateX(0)';
-                }, i * 80);
-            }
-        });
-    }, { threshold: 0.1 });
-
-    document.querySelectorAll('.step').forEach(el => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateX(-16px)';
-        el.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
-        stepObserver.observe(el);
-    });
-
-    // Form submit loading state
     document.getElementById('admissionForm').addEventListener('submit', function() {
         const btn = document.getElementById('submitBtn');
         btn.innerHTML = '<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="animation:spin 1s linear infinite"><path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99"/></svg> Submitting...';

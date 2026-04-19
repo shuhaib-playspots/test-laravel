@@ -394,47 +394,7 @@
     </div>
 </section>
 
-{{-- Footer --}}
-<footer class="footer">
-    <div class="footer-inner">
-        <div class="footer-top">
-            <div class="footer-brand">
-                <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
-                    <div style="width:36px;height:36px;border-radius:10px;background:var(--brand);overflow:hidden;display:flex;align-items:center;justify-content:center;">
-                        <img src="{{ asset('images/logo.webp') }}" alt="" style="width:100%;height:100%;object-fit:contain;">
-                    </div>
-                    <strong>Nabaath Learning Point</strong>
-                </div>
-                <p>An Islamic-based learning institution for kids, nurturing young minds with Quran, Arabic, and Islamic studies.</p>
-            </div>
-            <div class="footer-col">
-                <h4>Quick Links</h4>
-                <a href="{{ route('home') }}">Home</a>
-                <a href="{{ route('about') }}">About Us</a>
-                <a href="{{ route('courses.index') }}">Our Courses</a>
-                <a href="{{ route('get-started') }}">Get Started</a>
-            </div>
-            <div class="footer-col">
-                <h4>All Courses</h4>
-                @foreach ($otherCourses->take(5) as $c)
-                    <a href="{{ route('courses.show', $c->slug) }}">{{ $c->name }}</a>
-                @endforeach
-            </div>
-            <div class="footer-col">
-                <h4>Contact</h4>
-                <a href="tel:+1234567890">+1 234 567 890</a>
-                <a href="mailto:info@nabaath.com">info@nabaath.com</a>
-                <a href="#">WhatsApp Us</a>
-                <a href="#">Facebook</a>
-                <a href="#">Instagram</a>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <span>&copy; {{ date('Y') }} Nabaath Learning Point. All rights reserved.</span>
-            <span style="font-family:'Amiri',serif;font-size:16px;color:rgba(255,255,255,0.3);">نبات</span>
-        </div>
-    </div>
-</footer>
+@include('footer')
 
 {{-- Float --}}
 <div class="float-btn right">
@@ -456,10 +416,8 @@
     <span class="float-label">Call Us</span>
 </div>
 
+<script src="{{ asset('js/common.js') }}"></script>
 <script>
-    window.addEventListener('scroll', () => {
-        document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 20);
-    });
     let menuOpen = false;
     function toggleMenu() {
         menuOpen = !menuOpen;

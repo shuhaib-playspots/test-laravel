@@ -246,45 +246,7 @@
     </div>
 </section>
 
-{{-- Footer --}}
-<footer class="footer">
-    <div class="footer-inner">
-        <div class="footer-top">
-            <div class="footer-brand">
-                <strong>Nabaath Learning Point</strong>
-                <span style="font-family:'Amiri',serif;font-size:18px;color:var(--brand-mid);">نبات</span>
-                <p>Nurturing young hearts and minds through authentic Islamic education, one lesson at a time.</p>
-            </div>
-            <div class="footer-col">
-                <h4>Quick Links</h4>
-                <a href="{{ route('home') }}">Home</a>
-                <a href="{{ route('about') }}">About Us</a>
-                <a href="{{ route('courses.index') }}">Courses</a>
-                <a href="{{ route('printables.index') }}">Printables</a>
-            </div>
-            <div class="footer-col">
-                <h4>Courses</h4>
-                <a href="{{ route('courses.index') }}">Quran Recitation</a>
-                <a href="{{ route('courses.index') }}">Hifz ul Quran</a>
-                <a href="{{ route('courses.index') }}">Tajweed</a>
-                <a href="{{ route('courses.index') }}">Arabic Language</a>
-                <a href="{{ route('courses.index') }}">Islamic Studies</a>
-            </div>
-            <div class="footer-col">
-                <h4>Contact</h4>
-                <a href="tel:+1234567890">+1 234 567 890</a>
-                <a href="mailto:info@nabaath.com">info@nabaath.com</a>
-                <a href="#">WhatsApp Us</a>
-                <a href="#">Facebook</a>
-                <a href="#">Instagram</a>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <span>&copy; {{ date('Y') }} Nabaath Learning Point. All rights reserved.</span>
-            <span style="font-family:'Amiri',serif;font-size:16px;color:rgba(255,255,255,0.3);">نبات</span>
-        </div>
-    </div>
-</footer>
+@include('footer')
 
 {{-- Floating buttons --}}
 <div class="float-btn right">
