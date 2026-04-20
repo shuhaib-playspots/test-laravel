@@ -279,26 +279,9 @@
 <section class="section" id="about">
     <div class="section-inner">
         <div class="about-grid">
-            <div class="about-img">
-                <div class="about-img-pattern"></div>
-                <div class="about-img-content">
-                    <span class="about-arabic">نبات</span>
-                    <p class="about-img-sub">Nabaath — meaning "Growth"</p>
-                    <div class="about-stats-bar">
-                        <div class="about-stat-box">
-                            <strong>500+</strong>
-                            <span>Students</span>
-                        </div>
-                        <div class="about-stat-box">
-                            <strong>10+</strong>
-                            <span>Years</span>
-                        </div>
-                        <div class="about-stat-box">
-                            <strong>20+</strong>
-                            <span>Educators</span>
-                        </div>
-                    </div>
-                </div>
+            <div class="about-img" style="padding:0;overflow:hidden;">
+                <img src="{{ asset('images/vision.png') }}" alt="Our Vision"
+                     style="width:100%;height:100%;object-fit:cover;display:block;">
             </div>
 
             <div class="about-content">

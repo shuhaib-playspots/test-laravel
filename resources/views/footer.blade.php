@@ -3,7 +3,7 @@
         <div class="footer-top">
             <div class="footer-brand">
                 <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
-                    <img src="{{ asset('images/logo-no-bg.png') }}" alt="Nabaath Learning Point" style="height:36px;width:auto;object-fit:contain;">
+                    <img src="{{ asset('images/logo-white.png') }}" alt="Nabaath Learning Point" style="height:36px;width:auto;object-fit:contain;">
                 </div>
                 <p>An Islamic-based learning institution for kids, nurturing young minds with Quran, Arabic, and Islamic studies in a loving and structured environment.</p>
             </div>

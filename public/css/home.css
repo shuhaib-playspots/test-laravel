@@ -879,7 +879,8 @@
 
 /* ── CTA banner ── */
 .cta-section {
-    background: linear-gradient(135deg, var(--brand) 0%, var(--brand-dark) 100%);
+    background: linear-gradient(135deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.65) 100%),
+                url('/images/banner1.png') center/cover no-repeat;
     padding: 80px 24px;
     text-align: center;
     position: relative;
@@ -1099,7 +1100,9 @@
     }
 
     .about-img {
-        aspect-ratio: 16/7;
+        aspect-ratio: auto;
+        height: 400px;
+        border-radius: 18px;
     }
 
     .programs-grid {
