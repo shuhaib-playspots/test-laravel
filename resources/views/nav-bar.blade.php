@@ -7,12 +7,12 @@
         </a>
 
         <div class="nav-links">
-            <a href="{{ route('about') }}"           @class(['active' => request()->routeIs('about')])>About Us</a>
-            <a href="{{ route('courses.index') }}"   @class(['active' => request()->routeIs('courses.*')])>Courses</a>
-            <a href="{{ route('gallery.index') }}"   @class(['active' => request()->routeIs('gallery.*')])>Gallery</a>
+            <a href="{{ route('home') }} @class(['active' => request()->routeIs('home')])">Home</a>
+            <a href="{{ route('about') }}" @class(['active' => request()->routeIs('about')])>About Us</a>
+            <a href="{{ route('courses.index') }}" @class(['active' => request()->routeIs('courses.*')])>Courses</a>
+            <a href="{{ route('gallery.index') }}" @class(['active' => request()->routeIs('gallery.*')])>Gallery</a>
             <a href="{{ route('printables.index') }}" @class(['active' => request()->routeIs('printables.*')])>Printables</a>
-            <a href="{{ route('careers.index') }}"   @class(['active' => request()->routeIs('careers.*')])>Careers</a>
-            <a href="{{ route('home') }}#programs">Programs</a>
+            <a href="{{ route('careers.index') }}" @class(['active' => request()->routeIs('careers.*')])>Careers</a>
             <a href="{{ route('contact') }}" @class(['active' => request()->routeIs('contact')])>Contact</a>
         </div>
 
