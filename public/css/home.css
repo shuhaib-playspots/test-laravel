@@ -10,15 +10,6 @@
     padding: 100px 24px 60px;
 }
 
-.hero-bg-pattern {
-    position: absolute;
-    inset: 0;
-    opacity: .06;
-    background-image:
-        repeating-linear-gradient(45deg, #fff 0, #fff 1px, transparent 0, transparent 50%),
-        repeating-linear-gradient(-45deg, #fff 0, #fff 1px, transparent 0, transparent 50%);
-    background-size: 40px 40px;
-}
 
 .hero-orb-1 { width: 500px; height: 500px; top: -150px; right: -100px; animation-delay: 0s; }
 .hero-orb-2 { width: 300px; height: 300px; bottom: -80px; left: -60px; animation-delay: 3s; }

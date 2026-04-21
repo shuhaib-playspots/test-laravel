@@ -11,6 +11,35 @@
 }
 
 /* ── Hero shared components ── */
+.hero-bg-pattern {
+    position: absolute;
+    inset: 0;
+    opacity: .06;
+    background-image:
+        repeating-linear-gradient(45deg, #fff 0, #fff 1px, transparent 0, transparent 50%),
+        repeating-linear-gradient(-45deg, #fff 0, #fff 1px, transparent 0, transparent 50%);
+    background-size: 40px 40px;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    max-width: 760px;
+}
+
+.hero-breadcrumb {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.hero-breadcrumb a { color: rgba(255, 255, 255, 0.6); text-decoration: none; }
+.hero-breadcrumb a:hover { color: #7dd3c9; }
+
 .hero-orb {
     position: absolute;
     border-radius: 50%;

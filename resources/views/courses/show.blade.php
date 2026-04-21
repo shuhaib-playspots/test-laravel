@@ -1,181 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ $course->name }} &mdash; Nabaath Learning Point</title>
-    <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=inter:300,400,500,600,700,800,900|amiri:400,700" rel="stylesheet"/>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <style>
-        :root { --brand:#3f9087; --brand-dark:#2d6e67; --brand-light:#e8f5f4; --brand-mid:#5aada3; --gold:#c9a84c; --gold-light:#fdf4e0; }
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        html { scroll-behavior: smooth; }
-        body { font-family: 'Inter', sans-serif; color: #1a2e2c; overflow-x: hidden; background: #f8fffe; }
+@extends('layout')
 
-        /* Navbar */
-        .navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(255,255,255,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(63,144,135,0.12); transition: box-shadow .3s; }
-        .navbar.scrolled { box-shadow: 0 4px 24px rgba(63,144,135,0.15); }
-        .nav-inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 72px; }
-        .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
-        .nav-logo-icon { width: 42px; height: 42px; border-radius: 12px; background: var(--brand); display: flex; align-items: center; justify-content: center; overflow: hidden; }
-        .nav-logo-icon img { width: 100%; height: 100%; object-fit: contain; }
-        .nav-logo-text strong { display: block; font-size: 16px; font-weight: 700; color: var(--brand-dark); }
-        .nav-logo-text span { font-size: 10px; color: #888; letter-spacing: .5px; text-transform: uppercase; }
-        .nav-links { display: flex; align-items: center; gap: 32px; }
-        .nav-links a { font-size: 14px; font-weight: 500; color: #4a5568; text-decoration: none; transition: color .2s; }
-        .nav-links a:hover { color: var(--brand); }
-        .nav-cta { background: var(--brand); color: #fff; padding: 10px 22px; border-radius: 50px; font-size: 14px; font-weight: 600; text-decoration: none; transition: background .2s; box-shadow: 0 4px 14px rgba(63,144,135,0.35); }
-        .nav-cta:hover { background: var(--brand-dark); }
-        .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
-        .hamburger span { width: 24px; height: 2px; background: var(--brand); border-radius: 2px; }
+@section('title', $course->name . ' &mdash; Nabaath Learning Point')
 
-        /* Hero */
-        .hero { background: linear-gradient(135deg, #0d3532 0%, #1a5c55 50%, #2d8078 80%, #3f9087 100%); padding: 120px 24px 70px; position: relative; overflow: hidden; }
-        .hero-bg-pattern { position: absolute; inset: 0; opacity: .05; background-image: repeating-linear-gradient(45deg,#fff 0,#fff 1px,transparent 0,transparent 50%),repeating-linear-gradient(-45deg,#fff 0,#fff 1px,transparent 0,transparent 50%); background-size: 40px 40px; }
-        .hero-orb { position: absolute; border-radius: 50%; background: rgba(255,255,255,0.05); animation: float 8s ease-in-out infinite; }
-        .hero-orb-1 { width: 360px; height: 360px; top: -80px; right: -60px; }
-        .hero-orb-2 { width: 200px; height: 200px; bottom: -50px; left: -30px; animation-delay: 3s; }
-        @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-16px)} }
-        .arabic-deco { position: absolute; font-family: 'Amiri', serif; color: rgba(255,255,255,0.07); font-weight: 700; pointer-events: none; }
-        .hero-inner { max-width: 1200px; margin: 0 auto; position: relative; z-index: 2; display: grid; grid-template-columns: 1fr auto; gap: 40px; align-items: center; }
-        .hero-breadcrumb { display: flex; align-items: center; gap: 8px; font-size: 12px; color: rgba(255,255,255,0.5); margin-bottom: 16px; }
-        .hero-breadcrumb a { color: rgba(255,255,255,0.6); text-decoration: none; }
-        .hero-breadcrumb a:hover { color: #7dd3c9; }
-        .hero-num { font-size: 11px; font-weight: 700; color: #7dd3c9; letter-spacing: .1em; text-transform: uppercase; margin-bottom: 10px; }
-        .hero h1 { font-size: clamp(28px,4.5vw,52px); font-weight: 800; color: #fff; line-height: 1.15; margin-bottom: 14px; }
-        .hero-tagline { font-size: 17px; color: rgba(255,255,255,0.7); margin-bottom: 28px; line-height: 1.6; max-width: 540px; }
-        .hero-chips { display: flex; gap: 10px; flex-wrap: wrap; }
-        .hero-chip { display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 600; }
-        .hero-chip svg { width: 13px; height: 13px; }
-        .chip-w { background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.85); border: 1px solid rgba(255,255,255,0.15); }
-        .hero-side { flex-shrink: 0; }
-        .enrol-card { background: rgba(255,255,255,0.1); backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,0.18); border-radius: 20px; padding: 28px; width: 260px; text-align: center; }
-        .enrol-card p { font-size: 13px; color: rgba(255,255,255,0.7); margin-bottom: 16px; line-height: 1.5; }
-        .enrol-btn { display: block; background: #fff; color: var(--brand-dark); padding: 13px 20px; border-radius: 12px; font-size: 14px; font-weight: 700; text-decoration: none; transition: all .2s; box-shadow: 0 4px 16px rgba(0,0,0,0.2); margin-bottom: 10px; }
-        .enrol-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.25); }
-        .enrol-btn-outline { display: block; background: transparent; border: 2px solid rgba(255,255,255,0.4); color: #fff; padding: 11px 20px; border-radius: 12px; font-size: 13px; font-weight: 600; text-decoration: none; transition: all .2s; }
-        .enrol-btn-outline:hover { background: rgba(255,255,255,0.1); border-color: #fff; }
+@section('css')
+<link rel="stylesheet" href="{{ asset('css/common.css') }}">
+<link rel="stylesheet" href="{{ asset('css/course-show.css') }}">
+@endsection
 
-        /* Content area */
-        .content-wrap { max-width: 1200px; margin: 0 auto; padding: 60px 24px; display: grid; grid-template-columns: 1fr 320px; gap: 40px; align-items: start; }
-
-        /* Main column */
-        .content-main { display: flex; flex-direction: column; gap: 36px; }
-
-        .content-card { background: #fff; border-radius: 20px; padding: 32px; box-shadow: 0 2px 16px rgba(63,144,135,0.07); border: 1px solid rgba(63,144,135,0.07); }
-        .content-card h2 { font-size: 20px; font-weight: 700; color: #1a2e2c; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
-        .content-card h2 svg { width: 22px; height: 22px; color: var(--brand); flex-shrink: 0; }
-        .content-card p { font-size: 15px; color: #5a7270; line-height: 1.8; }
-
-        /* Highlights list */
-        .highlights-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
-        .highlights-list li { display: flex; align-items: flex-start; gap: 12px; font-size: 14.5px; color: #374151; line-height: 1.5; }
-        .hl-check { width: 22px; height: 22px; border-radius: 50%; background: var(--brand-light); display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
-        .hl-check svg { width: 13px; height: 13px; color: var(--brand); }
-
-        /* Class types */
-        .class-types-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; }
-        .ct-card { border-radius: 14px; border: 1px solid rgba(63,144,135,0.12); padding: 20px 16px; text-align: center; }
-        .ct-icon { width: 44px; height: 44px; border-radius: 12px; background: var(--brand-light); display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; }
-        .ct-icon svg { width: 22px; height: 22px; color: var(--brand); }
-        .ct-card h4 { font-size: 13px; font-weight: 700; color: #1a2e2c; margin-bottom: 4px; }
-        .ct-card p  { font-size: 11.5px; color: #7a9190; line-height: 1.5; }
-
-        /* Sidebar */
-        .content-sidebar { display: flex; flex-direction: column; gap: 20px; }
-        .side-card { background: #fff; border-radius: 18px; padding: 24px; box-shadow: 0 2px 16px rgba(63,144,135,0.07); border: 1px solid rgba(63,144,135,0.07); }
-        .side-card h3 { font-size: 15px; font-weight: 700; color: #1a2e2c; margin-bottom: 16px; }
-        .info-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #f3f4f6; font-size: 13.5px; }
-        .info-row:last-child { border-bottom: none; padding-bottom: 0; }
-        .info-row span:first-child { color: #6b7280; }
-        .info-row span:last-child  { font-weight: 600; color: #1a2e2c; }
-
-        .enrol-side-btn { display: block; background: var(--brand); color: #fff; padding: 14px; border-radius: 12px; text-align: center; font-size: 15px; font-weight: 700; text-decoration: none; transition: background .15s; }
-        .enrol-side-btn:hover { background: var(--brand-dark); }
-        .enrol-side-btn-out { display: block; background: transparent; border: 2px solid var(--brand); color: var(--brand); padding: 12px; border-radius: 12px; text-align: center; font-size: 14px; font-weight: 600; text-decoration: none; transition: all .15s; margin-top: 10px; }
-        .enrol-side-btn-out:hover { background: var(--brand); color: #fff; }
-
-        /* Other courses */
-        .other-course-link { display: flex; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1px solid #f3f4f6; text-decoration: none; color: #374151; font-size: 13.5px; font-weight: 500; transition: color .15s; }
-        .other-course-link:last-child { border-bottom: none; padding-bottom: 0; }
-        .other-course-link:hover { color: var(--brand); }
-        .other-course-link svg { width: 15px; height: 15px; color: var(--brand); margin-left: auto; }
-
-        /* CTA */
-        .cta-section { background: linear-gradient(135deg, var(--brand) 0%, var(--brand-dark) 100%); padding: 80px 24px; text-align: center; position: relative; overflow: hidden; }
-        .cta-section::before { content: 'نبات'; font-family: 'Amiri', serif; font-size: 200px; color: rgba(255,255,255,0.04); position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); pointer-events: none; }
-        .cta-section h2 { font-size: clamp(24px,4vw,40px); font-weight: 800; color: #fff; margin-bottom: 14px; position: relative; z-index: 1; }
-        .cta-section p { font-size: 16px; color: rgba(255,255,255,0.75); margin-bottom: 32px; position: relative; z-index: 1; }
-        .cta-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; position: relative; z-index: 1; }
-        .btn-primary { background: #fff; color: var(--brand-dark); padding: 14px 32px; border-radius: 50px; font-size: 15px; font-weight: 700; text-decoration: none; transition: all .2s; box-shadow: 0 8px 24px rgba(0,0,0,0.2); display: inline-flex; align-items: center; gap: 8px; }
-        .btn-primary:hover { transform: translateY(-2px); }
-        .btn-outline { background: transparent; border: 2px solid rgba(255,255,255,0.5); color: #fff; padding: 14px 28px; border-radius: 50px; font-size: 15px; font-weight: 600; text-decoration: none; transition: all .2s; display: inline-flex; align-items: center; gap: 8px; }
-        .btn-outline:hover { background: rgba(255,255,255,0.1); border-color: #fff; }
-
-        /* Footer */
-        .footer { background: #0d3532; color: rgba(255,255,255,0.7); padding: 64px 24px 32px; }
-        .footer-inner { max-width: 1200px; margin: 0 auto; }
-        .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 48px; }
-        .footer-brand strong { display: block; color: #fff; font-size: 18px; margin-bottom: 4px; }
-        .footer-brand p { font-size: 13px; line-height: 1.7; margin-top: 12px; }
-        .footer-col h4 { color: #fff; font-size: 14px; font-weight: 600; margin-bottom: 16px; }
-        .footer-col a { display: block; color: rgba(255,255,255,0.6); text-decoration: none; font-size: 13px; margin-bottom: 10px; transition: color .2s; }
-        .footer-col a:hover { color: var(--brand-mid); }
-        .footer-bottom { border-top: 1px solid rgba(255,255,255,0.08); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; font-size: 12px; }
-
-        /* Float */
-        .float-btn { position: fixed; bottom: 100px; z-index: 999; display: flex; flex-direction: column; align-items: center; gap: 6px; }
-        .float-btn.right { right: 24px; } .float-btn.left { left: 24px; }
-        .float-circle { width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; transition: all .3s; box-shadow: 0 6px 20px rgba(0,0,0,0.2); position: relative; }
-        .float-circle.get-started { background: var(--brand); } .float-circle.call-btn { background: #25d366; }
-        .float-circle:hover { transform: scale(1.1) translateY(-2px); }
-        .float-label { font-size: 10px; font-weight: 600; color: #fff; background: rgba(0,0,0,0.6); padding: 3px 8px; border-radius: 10px; white-space: nowrap; }
-        .float-pulse { position: absolute; border-radius: 50%; animation: pulse 2s ease-out infinite; }
-        .float-circle.get-started .float-pulse { background: var(--brand); width: 56px; height: 56px; }
-        .float-circle.call-btn .float-pulse { background: #25d366; width: 56px; height: 56px; }
-        @keyframes pulse { 0%{transform:scale(1);opacity:.7} 100%{transform:scale(2);opacity:0} }
-
-        /* Responsive */
-        @media(max-width:1024px) {
-            .hero-inner { grid-template-columns: 1fr; }
-            .hero-side { display: none; }
-            .content-wrap { grid-template-columns: 1fr; }
-            .class-types-grid { grid-template-columns: 1fr 1fr; }
-            .footer-top { grid-template-columns: 1fr 1fr; }
-        }
-        @media(max-width:768px) {
-            .nav-links,.nav-cta { display: none; }
-            .hamburger { display: flex; }
-            .class-types-grid { grid-template-columns: 1fr; }
-            .footer-top { grid-template-columns: 1fr; }
-            .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
-        }
-    </style>
-</head>
-<body>
-
-{{-- Navbar --}}
-<nav class="navbar" id="navbar">
-    <div class="nav-inner">
-        <a href="{{ route('home') }}" class="nav-logo">
-            <div class="nav-logo-icon"><img src="{{ asset('images/logo.webp') }}" alt="Nabaath"></div>
-            <div class="nav-logo-text">
-                <strong>Nabaath</strong>
-                <span>Learning Point</span>
-            </div>
-        </a>
-        <div class="nav-links">
-            <a href="{{ route('home') }}">Home</a>
-            <a href="{{ route('about') }}">About Us</a>
-            <a href="{{ route('courses.index') }}">Courses</a>
-            <a href="{{ route('home') }}#programs">Programs</a>
-            <a href="{{ route('home') }}#contact">Contact</a>
-        </div>
-        <a href="{{ route('get-started') }}?program={{ urlencode($course->name) }}" class="nav-cta">Enrol Now</a>
-        <div class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
-    </div>
-</nav>
+@section('content')
 
 {{-- Hero --}}
 <section class="hero">
@@ -396,7 +228,7 @@
 
 @include('footer')
 
-{{-- Float --}}
+{{-- Floating buttons --}}
 <div class="float-btn right">
     <a href="{{ route('get-started') }}?program={{ urlencode($course->name) }}" class="float-circle get-started">
         <div class="float-pulse"></div>
@@ -416,31 +248,4 @@
     <span class="float-label">Call Us</span>
 </div>
 
-<script src="{{ asset('js/common.js') }}"></script>
-<script>
-    let menuOpen = false;
-    function toggleMenu() {
-        menuOpen = !menuOpen;
-        if (menuOpen) {
-            if (!document.getElementById('mobile-menu')) {
-                const menu = document.createElement('div');
-                menu.id = 'mobile-menu';
-                menu.style.cssText = 'position:fixed;top:72px;left:0;right:0;background:#fff;padding:20px 24px;border-bottom:1px solid rgba(63,144,135,0.15);box-shadow:0 8px 24px rgba(63,144,135,0.12);z-index:999;display:flex;flex-direction:column;gap:4px;';
-                [['Home','{{ route("home") }}'],['About Us','{{ route("about") }}'],['Courses','{{ route("courses.index") }}'],['Contact','{{ route("home") }}#contact']].forEach(([label,href]) => {
-                    const a = document.createElement('a'); a.href = href; a.textContent = label;
-                    a.style.cssText = 'padding:12px 0;font-size:15px;font-weight:500;color:#1a2e2c;text-decoration:none;border-bottom:1px solid #f0faf9;';
-                    a.onclick = () => { document.getElementById('mobile-menu').remove(); menuOpen = false; };
-                    menu.appendChild(a);
-                });
-                const btn = document.createElement('a');
-                btn.href = '{{ route("get-started") }}?program={{ urlencode($course->name) }}';
-                btn.textContent = 'Enrol Now';
-                btn.style.cssText = 'margin-top:12px;text-align:center;background:#3f9087;color:#fff;padding:12px;border-radius:50px;font-weight:600;font-size:14px;text-decoration:none;';
-                menu.appendChild(btn);
-                document.body.appendChild(menu);
-            }
-        } else { const m = document.getElementById('mobile-menu'); if (m) m.remove(); }
-    }
-</script>
-</body>
-</html>
+@endsection

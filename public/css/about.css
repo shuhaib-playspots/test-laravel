@@ -12,28 +12,10 @@
 .hero-orb-1 { width: 400px; height: 400px; top: -100px; right: -80px; animation-delay: 0s; }
 .hero-orb-2 { width: 250px; height: 250px; bottom: -60px; left: -40px; animation-delay: 3s; }
 
-.hero-content {
-    position: relative;
-    z-index: 2;
-    text-align: center;
-    max-width: 760px;
-}
-
 .hero-title { font-size: clamp(36px, 5.5vw, 64px); }
 
 .hero-desc { max-width: 580px; margin: 0 auto 36px; }
 
-.hero-breadcrumb {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    font-size: 13px;
-    color: rgba(255, 255, 255, 0.5);
-}
-
-.hero-breadcrumb a { color: rgba(255, 255, 255, 0.6); text-decoration: none; }
-.hero-breadcrumb a:hover { color: #7dd3c9; }
 .hero-breadcrumb .sep { opacity: .4; }
 
 /* ── Mission / Vision / Values ── */

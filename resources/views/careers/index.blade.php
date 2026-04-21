@@ -1,142 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Careers &mdash; Nabaath Learning Point</title>
-    <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=inter:300,400,500,600,700,800,900|amiri:400,700" rel="stylesheet"/>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <link rel="stylesheet" href="{{ asset('css/layout.css') }}">
-    <style>
+@extends('layout')
 
+@section('title', 'Careers &mdash; Nabaath Learning Point')
 
-        /* ── Hero ── */
-        .hero { min-height: 48vh; background: linear-gradient(135deg, #0d3532 0%, #1a5c55 45%, #2d8078 75%, #3f9087 100%); display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; padding: 120px 24px 80px; }
-        .hero-bg-pattern { position: absolute; inset: 0; opacity: .05; background-image: repeating-linear-gradient(45deg,#fff 0,#fff 1px,transparent 0,transparent 50%),repeating-linear-gradient(-45deg,#fff 0,#fff 1px,transparent 0,transparent 50%); background-size: 40px 40px; }
-        .hero-orb { position: absolute; border-radius: 50%; background: rgba(255,255,255,0.05); animation: float 8s ease-in-out infinite; }
-        .hero-orb-1 { width: 400px; height: 400px; top: -100px; right: -80px; }
-        .hero-orb-2 { width: 250px; height: 250px; bottom: -60px; left: -40px; animation-delay: 3s; }
-        @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-18px)} }
-        .hero-content { position: relative; z-index: 2; text-align: center; max-width: 680px; }
-        .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(201,168,76,0.2); border: 1px solid rgba(201,168,76,0.4); color: #f0d080; padding: 6px 16px; border-radius: 50px; font-size: 12px; font-weight: 600; letter-spacing: .5px; text-transform: uppercase; margin-bottom: 20px; }
-        .hero-title { font-size: clamp(30px,5vw,52px); font-weight: 800; color: #fff; line-height: 1.15; margin-bottom: 18px; }
-        .hero-title .accent { color: #7dd3c9; }
-        .hero-desc { font-size: 16px; line-height: 1.75; color: rgba(255,255,255,0.72); max-width: 540px; margin: 0 auto 28px; }
-        .hero-breadcrumb { display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 13px; color: rgba(255,255,255,0.5); }
-        .hero-breadcrumb a { color: rgba(255,255,255,0.6); text-decoration: none; }
-        .hero-breadcrumb a:hover { color: #7dd3c9; }
+@section('css')
+<link rel="stylesheet" href="{{ asset('css/common.css') }}">
+<link rel="stylesheet" href="{{ asset('css/careers.css') }}">
+@endsection
 
-        /* ── Section ── */
-        .section { padding: 72px 24px; }
-        .section-inner { max-width: 860px; margin: 0 auto; }
-
-        /* ── Filter bar ── */
-        .filter-bar { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 36px; }
-        .filter-chip { display: inline-flex; align-items: center; gap: 6px; padding: 7px 16px; border-radius: 50px; font-size: 13px; font-weight: 600; cursor: pointer; border: 1.5px solid #e5e7eb; background: #fff; color: #6b7280; transition: all .2s; text-decoration: none; }
-        .filter-chip:hover, .filter-chip.active { background: var(--brand); border-color: var(--brand); color: #fff; }
-        .filter-count { font-size: 11px; background: rgba(0,0,0,0.1); padding: 1px 7px; border-radius: 20px; }
-        .filter-chip.active .filter-count { background: rgba(255,255,255,0.25); }
-
-        /* ── Job card ── */
-        .job-card {
-            background: #fff;
-            border: 1px solid rgba(63,144,135,0.1);
-            border-radius: 18px;
-            padding: 28px 32px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 14px rgba(63,144,135,0.07);
-            transition: transform .25s, box-shadow .25s, border-color .25s;
-        }
-        .job-card:hover { transform: translateY(-3px); box-shadow: 0 10px 36px rgba(63,144,135,0.14); border-color: rgba(63,144,135,0.25); }
-
-        .job-card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 16px; }
-        .job-title { font-size: 19px; font-weight: 700; color: #111827; line-height: 1.3; }
-        .job-dept  { font-size: 13px; color: #9ca3af; margin-top: 4px; }
-
-        .job-badges { display: flex; gap: 8px; flex-wrap: wrap; flex-shrink: 0; }
-        .badge { display: inline-flex; align-items: center; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; white-space: nowrap; }
-        .badge-type-full-time  { background: #eff6ff; color: #2563eb; }
-        .badge-type-part-time  { background: #fdf4e0; color: #b45309; }
-        .badge-type-contract   { background: #f3e8ff; color: #7c3aed; }
-        .badge-type-volunteer  { background: #f0fdf4; color: #16a34a; }
-
-        .job-meta { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; margin-bottom: 16px; }
-        .job-meta-item { display: flex; align-items: center; gap: 6px; font-size: 13px; color: #6b7280; }
-        .job-meta-item svg { width: 14px; height: 14px; color: var(--brand); flex-shrink: 0; }
-
-        .job-desc { font-size: 14px; line-height: 1.75; color: #4b5563; }
-
-        .job-card-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 24px; padding-top: 20px; border-top: 1px solid #f3f4f6; flex-wrap: wrap; gap: 12px; }
-        .deadline-info { font-size: 12.5px; color: #9ca3af; display: flex; align-items: center; gap: 6px; }
-        .deadline-info svg { width: 13px; height: 13px; }
-        .deadline-info.soon { color: #d97706; font-weight: 600; }
-
-        .btn-apply { display: inline-flex; align-items: center; gap: 8px; padding: 10px 24px; border-radius: 50px; background: var(--brand); color: #fff; font-size: 14px; font-weight: 600; text-decoration: none; transition: background .2s, transform .2s; box-shadow: 0 4px 14px rgba(63,144,135,0.3); }
-        .btn-apply:hover { background: var(--brand-dark); transform: translateY(-1px); }
-        .btn-apply svg { width: 15px; height: 15px; }
-
-        /* ── Requirements toggle ── */
-        .req-toggle { background: none; border: none; cursor: pointer; font-size: 13px; font-weight: 600; color: var(--brand); display: inline-flex; align-items: center; gap: 5px; margin-top: 10px; padding: 0; transition: color .2s; }
-        .req-toggle:hover { color: var(--brand-dark); }
-        .req-toggle svg { width: 14px; height: 14px; transition: transform .2s; }
-        .req-toggle.open svg { transform: rotate(180deg); }
-        .req-body { display: none; margin-top: 12px; padding: 14px 16px; background: #f8fffe; border: 1px solid rgba(63,144,135,0.12); border-radius: 10px; font-size: 13.5px; line-height: 1.75; color: #374151; white-space: pre-line; }
-        .req-body.open { display: block; }
-
-        /* ── Empty state ── */
-        .empty-state { text-align: center; padding: 80px 20px; color: #9ca3af; }
-        .empty-state svg { width: 64px; height: 64px; margin: 0 auto 20px; color: #d1d5db; }
-        .empty-state h3 { font-size: 18px; font-weight: 600; color: #6b7280; margin-bottom: 8px; }
-        .empty-state p { font-size: 14px; }
-
-        /* ── CTA ── */
-        .cta-section { background: linear-gradient(135deg, var(--brand) 0%, var(--brand-dark) 100%); padding: 80px 24px; text-align: center; position: relative; overflow: hidden; }
-        .cta-section::before { content: 'نبات'; font-family: 'Amiri', serif; font-size: 200px; color: rgba(255,255,255,0.04); position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); pointer-events: none; }
-        .cta-section h2 { font-size: clamp(26px,4vw,42px); font-weight: 800; color: #fff; margin-bottom: 14px; position: relative; z-index: 1; }
-        .cta-section p { font-size: 16px; color: rgba(255,255,255,0.75); margin-bottom: 36px; position: relative; z-index: 1; }
-        .cta-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; position: relative; z-index: 1; }
-        .btn-primary { background: #fff; color: var(--brand-dark); padding: 14px 32px; border-radius: 50px; font-size: 15px; font-weight: 700; text-decoration: none; transition: all .2s; box-shadow: 0 8px 24px rgba(0,0,0,0.2); display: inline-flex; align-items: center; gap: 8px; }
-        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(0,0,0,0.3); }
-        .btn-outline { background: transparent; border: 2px solid rgba(255,255,255,0.5); color: #fff; padding: 14px 28px; border-radius: 50px; font-size: 15px; font-weight: 600; text-decoration: none; transition: all .2s; display: inline-flex; align-items: center; gap: 8px; }
-        .btn-outline:hover { background: rgba(255,255,255,0.1); border-color: #fff; }
-
-        /* ── Footer ── */
-        .footer { background: #0d3532; color: rgba(255,255,255,0.7); padding: 64px 24px 32px; }
-        .footer-inner { max-width: 1200px; margin: 0 auto; }
-        .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 48px; }
-        .footer-brand strong { display: block; color: #fff; font-size: 18px; margin-bottom: 4px; }
-        .footer-brand p { font-size: 13px; line-height: 1.7; margin-top: 12px; }
-        .footer-col h4 { color: #fff; font-size: 14px; font-weight: 600; margin-bottom: 16px; }
-        .footer-col a { display: block; color: rgba(255,255,255,0.6); text-decoration: none; font-size: 13px; margin-bottom: 10px; transition: color .2s; }
-        .footer-col a:hover { color: var(--brand-mid); }
-        .footer-bottom { border-top: 1px solid rgba(255,255,255,0.08); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; font-size: 12px; }
-
-        /* ── Float ── */
-        .float-btn { position: fixed; bottom: 100px; z-index: 999; display: flex; flex-direction: column; align-items: center; gap: 6px; }
-        .float-btn.right { right: 24px; } .float-btn.left { left: 24px; }
-        .float-circle { width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; transition: all .3s; box-shadow: 0 6px 20px rgba(0,0,0,0.2); position: relative; }
-        .float-circle.get-started { background: var(--brand); } .float-circle.call-btn { background: #25d366; }
-        .float-circle:hover { transform: scale(1.1) translateY(-2px); }
-        .float-label { font-size: 10px; font-weight: 600; color: #fff; background: rgba(0,0,0,0.6); padding: 3px 8px; border-radius: 10px; white-space: nowrap; }
-        .float-pulse { position: absolute; border-radius: 50%; animation: pulse 2s ease-out infinite; }
-        .float-circle.get-started .float-pulse { background: var(--brand); width: 56px; height: 56px; }
-        .float-circle.call-btn .float-pulse { background: #25d366; width: 56px; height: 56px; }
-        @keyframes pulse { 0%{transform:scale(1);opacity:.7} 100%{transform:scale(2);opacity:0} }
-
-        /* ── Responsive ── */
-        @media(max-width:768px) {
-            .nav-links,.nav-cta { display: none; }
-            .hamburger { display: flex; }
-            .job-card-top { flex-direction: column; }
-            .footer-top { grid-template-columns: 1fr; }
-            .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
-        }
-    </style>
-</head>
-<body>
-
-@include('nav-bar')
+@section('content')
 
 {{-- Hero --}}
 <section class="hero">
@@ -318,5 +189,4 @@
     <span class="float-label">Call Us</span>
 </div>
 
-</body>
-</html>
+@endsection
