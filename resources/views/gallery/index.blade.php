@@ -1,167 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gallery &mdash; Nabaath Learning Point</title>
-    <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=inter:300,400,500,600,700,800,900|amiri:400,700" rel="stylesheet"/>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <link rel="stylesheet" href="{{ asset('css/layout.css') }}">
-    <style>
+@extends('layout')
 
+@section('title', 'Gallery &mdash; Nabaath Learning Point')
 
-        /* ── Hero ── */
-        .hero { min-height: 48vh; background: linear-gradient(135deg, #0d3532 0%, #1a5c55 45%, #2d8078 75%, #3f9087 100%); display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; padding: 120px 24px 80px; }
-        .hero-bg-pattern { position: absolute; inset: 0; opacity: .05; background-image: repeating-linear-gradient(45deg,#fff 0,#fff 1px,transparent 0,transparent 50%),repeating-linear-gradient(-45deg,#fff 0,#fff 1px,transparent 0,transparent 50%); background-size: 40px 40px; }
-        .hero-orb { position: absolute; border-radius: 50%; background: rgba(255,255,255,0.05); animation: float 8s ease-in-out infinite; }
-        .hero-orb-1 { width: 400px; height: 400px; top: -100px; right: -80px; }
-        .hero-orb-2 { width: 250px; height: 250px; bottom: -60px; left: -40px; animation-delay: 3s; }
-        @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-18px)} }
-        .hero-content { position: relative; z-index: 2; text-align: center; max-width: 680px; }
-        .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(201,168,76,0.2); border: 1px solid rgba(201,168,76,0.4); color: #f0d080; padding: 6px 16px; border-radius: 50px; font-size: 12px; font-weight: 600; letter-spacing: .5px; text-transform: uppercase; margin-bottom: 20px; }
-        .hero-title { font-size: clamp(30px,5vw,52px); font-weight: 800; color: #fff; line-height: 1.15; margin-bottom: 18px; }
-        .hero-title .accent { color: #7dd3c9; }
-        .hero-desc { font-size: 16px; line-height: 1.75; color: rgba(255,255,255,0.72); max-width: 520px; margin: 0 auto 28px; }
-        .hero-breadcrumb { display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 13px; color: rgba(255,255,255,0.5); }
-        .hero-breadcrumb a { color: rgba(255,255,255,0.6); text-decoration: none; }
-        .hero-breadcrumb a:hover { color: #7dd3c9; }
+@section('css')
+<link rel="stylesheet" href="{{ asset('css/common.css') }}">
+<link rel="stylesheet" href="{{ asset('css/gallery.css') }}">
+@endsection
 
-        /* ── Section ── */
-        .section { padding: 72px 24px; }
-        .section-inner { max-width: 1200px; margin: 0 auto; }
-
-        /* ── Gallery grid ── */
-        .gallery-grid {
-            columns: 4;
-            column-gap: 16px;
-        }
-        .gallery-item {
-            break-inside: avoid;
-            margin-bottom: 16px;
-            border-radius: 14px;
-            overflow: hidden;
-            cursor: pointer;
-            position: relative;
-            aspect-ratio: 4 / 3;
-            box-shadow: 0 2px 12px rgba(63,144,135,0.08);
-            transition: transform .3s, box-shadow .3s;
-        }
-        .gallery-item:hover { transform: translateY(-4px); box-shadow: 0 12px 36px rgba(63,144,135,0.18); }
-        .gallery-item img {
-            width: 100%; height: 100%;
-            object-fit: cover; display: block;
-            transition: transform .4s;
-        }
-        .gallery-item:hover img { transform: scale(1.06); }
-
-        .gallery-item-overlay {
-            position: absolute; inset: 0;
-            background: linear-gradient(to top, rgba(13,53,50,0.85) 0%, transparent 60%);
-            opacity: 0; transition: opacity .3s;
-            display: flex; align-items: flex-end; padding: 16px;
-        }
-        .gallery-item:hover .gallery-item-overlay { opacity: 1; }
-        .gallery-item-info .item-title { font-size: 13px; font-weight: 700; color: #fff; }
-        .gallery-item-info .item-caption { font-size: 12px; color: rgba(255,255,255,0.7); margin-top: 3px; }
-
-        .gallery-item-zoom {
-            position: absolute; top: 12px; right: 12px;
-            width: 36px; height: 36px; border-radius: 50%;
-            background: rgba(255,255,255,0.15); backdrop-filter: blur(6px);
-            display: flex; align-items: center; justify-content: center;
-            opacity: 0; transition: opacity .3s;
-        }
-        .gallery-item:hover .gallery-item-zoom { opacity: 1; }
-        .gallery-item-zoom svg { width: 16px; height: 16px; color: #fff; }
-
-        /* ── Empty state ── */
-        .empty-state { text-align: center; padding: 80px 20px; color: #9ca3af; }
-        .empty-state svg { width: 64px; height: 64px; margin: 0 auto 20px; color: #d1d5db; }
-        .empty-state h3 { font-size: 18px; font-weight: 600; color: #6b7280; margin-bottom: 8px; }
-        .empty-state p { font-size: 14px; }
-
-        /* ── Lightbox ── */
-        .lightbox {
-            display: none; position: fixed; inset: 0; z-index: 9999;
-            background: rgba(0,0,0,0.92); backdrop-filter: blur(8px);
-            align-items: center; justify-content: center;
-        }
-        .lightbox.open { display: flex; }
-        .lightbox-inner { position: relative; max-width: 90vw; max-height: 90vh; animation: lbIn .25s ease; }
-        @keyframes lbIn { from{opacity:0;transform:scale(.93)} to{opacity:1;transform:scale(1)} }
-        .lightbox-img { max-width: 90vw; max-height: 80vh; object-fit: contain; border-radius: 12px; display: block; }
-        .lightbox-info { margin-top: 16px; text-align: center; }
-        .lightbox-title { font-size: 16px; font-weight: 700; color: #fff; }
-        .lightbox-caption { font-size: 14px; color: rgba(255,255,255,0.6); margin-top: 4px; }
-        .lightbox-close {
-            position: fixed; top: 20px; right: 24px;
-            width: 44px; height: 44px; border-radius: 50%;
-            background: rgba(255,255,255,0.12); border: none; cursor: pointer;
-            display: flex; align-items: center; justify-content: center;
-            transition: background .2s; color: #fff;
-        }
-        .lightbox-close:hover { background: rgba(255,255,255,0.22); }
-        .lightbox-close svg { width: 20px; height: 20px; }
-        .lightbox-nav {
-            position: fixed; top: 50%; transform: translateY(-50%);
-            width: 48px; height: 48px; border-radius: 50%;
-            background: rgba(255,255,255,0.12); border: none; cursor: pointer;
-            display: flex; align-items: center; justify-content: center;
-            transition: background .2s; color: #fff;
-        }
-        .lightbox-nav:hover { background: rgba(255,255,255,0.22); }
-        .lightbox-nav.prev { left: 20px; }
-        .lightbox-nav.next { right: 20px; }
-        .lightbox-nav svg { width: 20px; height: 20px; }
-        .lightbox-counter { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); font-size: 13px; color: rgba(255,255,255,0.5); font-weight: 500; }
-
-        /* ── CTA ── */
-        .cta-section { background: linear-gradient(135deg, var(--brand) 0%, var(--brand-dark) 100%); padding: 80px 24px; text-align: center; position: relative; overflow: hidden; }
-        .cta-section::before { content: 'نبات'; font-family: 'Amiri', serif; font-size: 200px; color: rgba(255,255,255,0.04); position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); pointer-events: none; }
-        .cta-section h2 { font-size: clamp(26px,4vw,42px); font-weight: 800; color: #fff; margin-bottom: 14px; position: relative; z-index: 1; }
-        .cta-section p { font-size: 16px; color: rgba(255,255,255,0.75); margin-bottom: 36px; position: relative; z-index: 1; }
-        .cta-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; position: relative; z-index: 1; }
-        .btn-primary { background: #fff; color: var(--brand-dark); padding: 14px 32px; border-radius: 50px; font-size: 15px; font-weight: 700; text-decoration: none; transition: all .2s; box-shadow: 0 8px 24px rgba(0,0,0,0.2); display: inline-flex; align-items: center; gap: 8px; }
-        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(0,0,0,0.3); }
-        .btn-outline { background: transparent; border: 2px solid rgba(255,255,255,0.5); color: #fff; padding: 14px 28px; border-radius: 50px; font-size: 15px; font-weight: 600; text-decoration: none; transition: all .2s; display: inline-flex; align-items: center; gap: 8px; }
-        .btn-outline:hover { background: rgba(255,255,255,0.1); border-color: #fff; }
-
-        /* ── Footer ── */
-        .footer { background: #0d3532; color: rgba(255,255,255,0.7); padding: 64px 24px 32px; }
-        .footer-inner { max-width: 1200px; margin: 0 auto; }
-        .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 48px; }
-        .footer-brand strong { display: block; color: #fff; font-size: 18px; margin-bottom: 4px; }
-        .footer-brand p { font-size: 13px; line-height: 1.7; margin-top: 12px; }
-        .footer-col h4 { color: #fff; font-size: 14px; font-weight: 600; margin-bottom: 16px; }
-        .footer-col a { display: block; color: rgba(255,255,255,0.6); text-decoration: none; font-size: 13px; margin-bottom: 10px; transition: color .2s; }
-        .footer-col a:hover { color: var(--brand-mid); }
-        .footer-bottom { border-top: 1px solid rgba(255,255,255,0.08); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; font-size: 12px; }
-
-        /* ── Float ── */
-        .float-btn { position: fixed; bottom: 100px; z-index: 999; display: flex; flex-direction: column; align-items: center; gap: 6px; }
-        .float-btn.right { right: 24px; } .float-btn.left { left: 24px; }
-        .float-circle { width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; transition: all .3s; box-shadow: 0 6px 20px rgba(0,0,0,0.2); position: relative; }
-        .float-circle.get-started { background: var(--brand); } .float-circle.call-btn { background: #25d366; }
-        .float-circle:hover { transform: scale(1.1) translateY(-2px); }
-        .float-label { font-size: 10px; font-weight: 600; color: #fff; background: rgba(0,0,0,0.6); padding: 3px 8px; border-radius: 10px; white-space: nowrap; }
-        .float-pulse { position: absolute; border-radius: 50%; animation: pulse 2s ease-out infinite; }
-        .float-circle.get-started .float-pulse { background: var(--brand); width: 56px; height: 56px; }
-        .float-circle.call-btn .float-pulse { background: #25d366; width: 56px; height: 56px; }
-        @keyframes pulse { 0%{transform:scale(1);opacity:.7} 100%{transform:scale(2);opacity:0} }
-
-        /* ── Responsive ── */
-        @media(max-width:1024px) { .gallery-grid { columns: 3; } .footer-top { grid-template-columns: 1fr 1fr; } }
-        @media(max-width:768px)  { .nav-links,.nav-cta { display: none; } .hamburger { display: flex; } .gallery-grid { columns: 2; } .footer-top { grid-template-columns: 1fr; } .footer-bottom { flex-direction: column; gap: 8px; text-align: center; } }
-        @media(max-width:480px)  { .gallery-grid { columns: 1; } }
-    </style>
-</head>
-<body>
-
-@include('nav-bar')
+@section('content')
 
 {{-- Hero --}}
-<section class="hero">
+<section class="hero" style="background: linear-gradient(135deg, rgba(13,53,50,0.80) 0%, rgba(63,144,135,0.65) 100%), url('{{ asset('images/img2.webp') }}') center/cover no-repeat;">
     <div class="hero-bg-pattern"></div>
     <div class="hero-orb hero-orb-1"></div>
     <div class="hero-orb hero-orb-2"></div>
@@ -294,5 +143,4 @@
     <span class="float-label">Call Us</span>
 </div>
 
-</body>
-</html>
+@endsection
