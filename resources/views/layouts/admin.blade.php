@@ -15,8 +15,8 @@
 
         /* ── Sidebar ── */
         .sidebar       { width: 260px; flex-shrink: 0; background: #1b2f2e; display: flex; flex-direction: column; overflow: hidden; }
-        .sidebar-logo  { display: flex; align-items: center; gap: 12px; padding: 22px 20px 18px; border-bottom: 1px solid rgba(255,255,255,.07); }
-        .sidebar-logo img  { width: 34px; height: 34px; object-fit: contain; border-radius: 8px; }
+        .sidebar-logo  { display: flex; align-items: center; padding: 10px; }
+        .sidebar-logo img  {height: 34px; width:100%;}
         .sidebar-logo-text strong { display: block; font-size: 14px; font-weight: 700; color: #fff; line-height: 1.2; }
         .sidebar-logo-text span   { font-size: 11px; color: rgba(255,255,255,.45); }
 
@@ -79,7 +79,7 @@
         .nav-sub-item      { display: flex; align-items: center; gap: 9px; padding: 7.5px 12px 7.5px 36px; border-radius: 10px; color: rgba(255,255,255,.5); font-size: 13px; font-weight: 500; text-decoration: none; transition: background .15s, color .15s; margin-bottom: 1px; position: relative; }
         .nav-sub-item::before { content: ''; position: absolute; left: 20px; width: 5px; height: 5px; border-radius: 50%; background: currentColor; opacity: .45; }
         .nav-sub-item:hover { background: rgba(255,255,255,.07); color: rgba(255,255,255,.85); }
-        .nav-sub-item.active { color: #7dd3c9; font-weight: 600; background: rgba(63,144,135,.15); }
+        .nav-sub-item.active { color: #7dd3c9; font-weight: 600; background:none !important}
         .nav-sub-item.active::before { opacity: 1; background: #7dd3c9; }
     </style>
 </head>
@@ -92,11 +92,7 @@
 
         {{-- Logo --}}
         <div class="sidebar-logo">
-            <img src="{{ asset('images/logo.webp') }}" alt="{{ config('app.name') }}">
-            <div class="sidebar-logo-text">
-                <strong>Nabaath</strong>
-                <span>Learning Point</span>
-            </div>
+            <img src="{{ asset('images/logo-white.png') }}" alt="Nabaath">
         </div>
 
         {{-- Navigation --}}
@@ -108,7 +104,6 @@
             $inCareers     = request()->routeIs('admin.careers.*');
         @endphp
         <div class="sidebar-nav">
-            <div class="sidebar-section-label">Menu</div>
 
             {{-- Dashboard --}}
             <a href="{{ route('admin.dashboard') }}"

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login &mdash; {{ config('app.name', 'App') }}</title>
+    <title>Login &mdash; Nabaath</title>
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=inter:300,400,500,600,700" rel="stylesheet" />
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -33,17 +33,7 @@
         {{-- Logo / Brand --}}
         <div class="relative z-10">
             <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-xl flex items-center justify-center"
-                     style="background: rgba(255,255,255,0.2);">
-                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" stroke-width="2"
-                         viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                              d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
-                    </svg>
-                </div>
-                <span class="text-white font-semibold text-xl tracking-wide">
-                    {{ config('app.name', 'App') }}
-                </span>
+                <img src="{{ asset('images/logo-white.png') }}" alt="Nabaath" class="h-10 w-auto">
             </div>
         </div>
 
@@ -92,18 +82,9 @@
 
             {{-- Mobile logo --}}
             <div class="lg:hidden flex items-center justify-center gap-3 mb-8">
-                <div class="w-9 h-9 rounded-xl flex items-center justify-center"
-                     style="background: #3f9087;">
-                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="2"
-                         viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                              d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
-                    </svg>
-                </div>
-                <span class="font-semibold text-xl" style="color: #3f9087;">
-                    {{ config('app.name', 'App') }}
-                </span>
+                <img src="{{ asset('images/logo-no-bg.png') }}" alt="Nabaath" class="h-9 w-auto">
             </div>
+
 
             {{-- Card --}}
             <div class="bg-white rounded-2xl shadow-xl shadow-teal-100 p-8 sm:p-10">
@@ -248,7 +229,7 @@
 
             {{-- Footer --}}
             <p class="text-center text-xs text-gray-400 mt-6">
-                &copy; {{ date('Y') }} {{ config('app.name', 'App') }}. All rights reserved.
+                &copy; {{ date('Y') }} Nabaath. All rights reserved.
             </p>
         </div>
     </div>
