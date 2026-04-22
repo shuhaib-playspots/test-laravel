@@ -63,6 +63,28 @@
     .existing-file span { font-size:12.5px; color:#15803d; font-weight:500; }
     .existing-file a { font-size:12px; color:#3f9087; font-weight:600; text-decoration:none; margin-left:auto; }
     .existing-file a:hover { text-decoration:underline; }
+
+    /* ── Mobile responsive ── */
+    @media (max-width: 768px) {
+        /* Stack the two-column grid into one column */
+        .form-grid { grid-template-columns: 1fr; gap: 0; }
+
+        /* Reduce card padding */
+        .form-card { padding: 18px 16px; margin-bottom: 14px; border-radius: 12px; }
+
+        /* Slightly larger tap targets for inputs */
+        .f-row input[type=text],
+        .f-row textarea,
+        .f-row select { padding: 10px 12px; font-size: 14px; border-radius: 8px; }
+
+        /* Stack form actions full-width */
+        .form-actions { flex-direction: column; gap: 10px; }
+        .btn-submit,
+        .btn-cancel { width: 100%; text-align: center; padding: 13px; font-size: 14px; }
+
+        /* Image preview shorter on mobile */
+        .img-preview { height: 120px; }
+    }
 </style>
 
 <form method="POST"

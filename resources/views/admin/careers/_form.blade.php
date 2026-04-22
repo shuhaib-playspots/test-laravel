@@ -46,6 +46,30 @@
     .btn-submit:hover { background:#2d6e67; }
     .btn-cancel   { padding:11px 20px; border-radius:10px; background:#f3f4f6; color:#374151; font-size:14px; font-weight:600; text-decoration:none; transition:background .15s; }
     .btn-cancel:hover { background:#e5e7eb; }
+
+    /* ── Mobile responsive ── */
+    @media (max-width: 768px) {
+        /* Stack outer two-column grid to single column */
+        .form-grid { grid-template-columns: 1fr; gap: 0; }
+
+        /* Stack inner Department / Location row to single column */
+        .f-cols2 { grid-template-columns: 1fr; gap: 0; }
+        .f-cols2 .f-row { margin-bottom: 18px; }
+
+        /* Reduce card padding */
+        .form-card { padding: 18px 16px; margin-bottom: 14px; border-radius: 12px; }
+
+        /* Larger tap targets for inputs (prevents iOS auto-zoom) */
+        .f-row input[type=text],
+        .f-row input[type=date],
+        .f-row textarea,
+        .f-row select { padding: 10px 12px; font-size: 14px; border-radius: 8px; }
+
+        /* Stack action buttons full-width */
+        .form-actions { flex-direction: column; gap: 10px; }
+        .btn-submit,
+        .btn-cancel { width: 100%; text-align: center; padding: 13px; font-size: 14px; }
+    }
 </style>
 
 <form method="POST" action="{{ $action }}" id="career-form">

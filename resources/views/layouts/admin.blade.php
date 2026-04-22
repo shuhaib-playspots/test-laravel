@@ -81,9 +81,98 @@
         .nav-sub-item:hover { background: rgba(255,255,255,.07); color: rgba(255,255,255,.85); }
         .nav-sub-item.active { color: #7dd3c9; font-weight: 600; background:none !important}
         .nav-sub-item.active::before { opacity: 1; background: #7dd3c9; }
+
+        /* ── Hamburger button (hidden on desktop) ── */
+        .sidebar-toggle {
+            display: none;
+            align-items: center;
+            justify-content: center;
+            width: 40px; height: 40px;
+            border: none; background: none; cursor: pointer;
+            border-radius: 8px; padding: 8px;
+            flex-shrink: 0; margin-right: 6px;
+            transition: background .15s;
+        }
+        .sidebar-toggle:hover { background: #f0f2f5; }
+        .sidebar-toggle svg { width: 22px; height: 22px; color: #1a2e2d; }
+
+        /* ── Sidebar backdrop overlay ── */
+        .sidebar-backdrop {
+            position: fixed; inset: 0;
+            background: rgba(0,0,0,.45);
+            z-index: 998;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: opacity .3s ease, visibility .3s ease;
+        }
+        .sidebar-backdrop.active {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+
+        /* ════════════════════════════════
+           MOBILE RESPONSIVE  (≤ 768px)
+           ════════════════════════════════ */
+        @media (max-width: 768px) {
+
+            /* Show hamburger */
+            .sidebar-toggle { display: flex; }
+
+            /* Sidebar becomes a fixed slide-in drawer */
+            .sidebar {
+                position: fixed;
+                top: 0; left: 0; bottom: 0;
+                z-index: 999;
+                transform: translateX(-100%);
+                transition: transform .3s cubic-bezier(.4,0,.2,1);
+                box-shadow: none;
+                width: 260px;
+            }
+            .sidebar.open {
+                transform: translateX(0);
+                box-shadow: 4px 0 24px rgba(0,0,0,.25);
+            }
+
+            /* Main area takes full width — no sidebar offset */
+            .main-area { width: 100%; }
+
+            /* Admin shell fills full screen height on mobile */
+            .admin-shell { height: 100dvh; }
+
+            /* Page content must scroll freely on mobile */
+            .page-content {
+                padding: 16px 14px;
+                overflow-y: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            /* TopBar adjustments */
+            .topbar {
+                padding: 0 14px;
+                height: 56px;
+            }
+            .topbar-title { font-size: 15px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+            .topbar-sub { font-size: 11px; }
+
+            /* Hide user chip name text on small screens, show avatar only */
+            .topbar-chip span { display: none; }
+            .topbar-chip { padding: 5px; border-radius: 50%; gap: 0; }
+        }
+
+        /* Tablet (769px – 1024px) */
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .sidebar { width: 220px; }
+            .topbar { padding: 0 20px; }
+            .page-content { padding: 20px; }
+        }
     </style>
 </head>
 <body style="margin:0; background:#f0f2f5;">
+
+{{-- Sidebar backdrop (mobile) --}}
+<div class="sidebar-backdrop" id="sidebar-backdrop" onclick="closeSidebar()"></div>
 
 <div class="admin-shell">
 
@@ -264,11 +353,19 @@
 
         {{-- TopBar --}}
         <header class="topbar">
-            <div>
-                <div class="topbar-title">@yield('title', 'Dashboard')</div>
-                @hasSection('subtitle')
-                    <div class="topbar-sub">@yield('subtitle')</div>
-                @endif
+            <div style="display:flex;align-items:center;min-width:0;">
+                {{-- Hamburger (mobile only) --}}
+                <button class="sidebar-toggle" id="sidebar-toggle" onclick="openSidebar()" aria-label="Open menu">
+                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/>
+                    </svg>
+                </button>
+                <div style="min-width:0;">
+                    <div class="topbar-title">@yield('title', 'Dashboard')</div>
+                    @hasSection('subtitle')
+                        <div class="topbar-sub">@yield('subtitle')</div>
+                    @endif
+                </div>
             </div>
             <div class="topbar-right">
                 <div class="topbar-chip">
@@ -301,6 +398,29 @@
     function toggleGroup(id) {
         document.getElementById(id).classList.toggle('open');
     }
+
+    function openSidebar() {
+        document.querySelector('.sidebar').classList.add('open');
+        document.getElementById('sidebar-backdrop').classList.add('active');
+        // Do NOT lock body scroll — page-content handles its own scroll
+    }
+
+    function closeSidebar() {
+        document.querySelector('.sidebar').classList.remove('open');
+        document.getElementById('sidebar-backdrop').classList.remove('active');
+    }
+
+    // Close sidebar when a nav link (not a group toggle) is tapped on mobile
+    document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('.nav-item, .nav-sub-item').forEach(function (el) {
+            el.addEventListener('click', function () {
+                if (window.innerWidth <= 768) {
+                    // Small delay so the click registers before sidebar closes
+                    setTimeout(closeSidebar, 120);
+                }
+            });
+        });
+    });
 </script>
 </body>
 </html>
