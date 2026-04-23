@@ -3,45 +3,13 @@
 @section('title', 'Printables')
 @section('subtitle', 'Manage downloadable study materials')
 
+@section('styles')
+    <link rel="stylesheet" href="{{ asset('css/admin/admin-common.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/admin/admin-careers-index.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/admin/admin-printables-index.css') }}">
+@endsection
+
 @section('content')
-<style>
-    .page-header   { display:flex; align-items:center; justify-content:space-between; margin-bottom:24px; }
-    .page-header h2 { font-size:16px; font-weight:600; color:#374151; }
-    .add-btn       { display:inline-flex; align-items:center; gap:7px; padding:9px 18px; border-radius:10px; background:#3f9087; color:#fff; font-size:13px; font-weight:600; text-decoration:none; transition:background .15s; }
-    .add-btn:hover { background:#2d6e67; }
-    .add-btn svg   { width:15px; height:15px; }
-
-    .table-card    { background:#fff; border-radius:14px; box-shadow:0 1px 4px rgba(0,0,0,.06),0 4px 16px rgba(0,0,0,.04); overflow:hidden; }
-    .table-wrap    { overflow-x:auto; }
-    table          { width:100%; border-collapse:collapse; font-size:13.5px; }
-    thead tr       { background:#f8fffe; border-bottom:2px solid #f0f2f5; }
-    thead th       { padding:13px 16px; text-align:left; font-size:11px; font-weight:700; color:#9ca3af; text-transform:uppercase; letter-spacing:.07em; white-space:nowrap; }
-    tbody tr       { border-bottom:1px solid #f3f4f6; transition:background .1s; }
-    tbody tr:last-child { border-bottom:none; }
-    tbody tr:hover { background:#f9fffe; }
-    tbody td       { padding:14px 16px; vertical-align:middle; }
-
-    .thumb         { width:52px; height:52px; border-radius:10px; object-fit:cover; display:block; }
-    .thumb-placeholder { width:52px; height:52px; border-radius:10px; background:linear-gradient(135deg,#1a5c55,#3f9087); display:flex; align-items:center; justify-content:center; }
-    .thumb-placeholder svg { width:22px; height:22px; color:rgba(255,255,255,0.7); }
-
-    .badge-active   { display:inline-flex; align-items:center; gap:5px; padding:3px 10px; border-radius:20px; font-size:11.5px; font-weight:600; background:#f0fdf4; color:#16a34a; }
-    .badge-inactive { display:inline-flex; align-items:center; gap:5px; padding:3px 10px; border-radius:20px; font-size:11.5px; font-weight:600; background:#f3f4f6; color:#6b7280; }
-    .badge-active::before, .badge-inactive::before { content:''; width:6px; height:6px; border-radius:50%; background:currentColor; opacity:.7; }
-
-    .subject-tag   { display:inline-block; padding:3px 10px; border-radius:20px; font-size:11.5px; font-weight:600; background:#eff6ff; color:#2563eb; }
-
-    .dl-count      { display:inline-flex; align-items:center; gap:5px; font-size:13px; font-weight:600; color:#374151; }
-    .dl-count svg  { width:14px; height:14px; color:#3f9087; }
-
-    .actions       { display:flex; align-items:center; gap:6px; }
-    .act-btn       { display:inline-flex; align-items:center; gap:5px; padding:6px 12px; border-radius:8px; font-size:12px; font-weight:600; text-decoration:none; border:none; cursor:pointer; transition:all .15s; }
-    .act-edit      { background:#eff6ff; color:#2563eb; }
-    .act-edit:hover { background:#dbeafe; }
-    .act-del       { background:#fef2f2; color:#dc2626; }
-    .act-del:hover { background:#fee2e2; }
-    .act-btn svg   { width:13px; height:13px; }
-</style>
 
 <div class="page-header">
     <h2>{{ $printables->count() }} material{{ $printables->count() !== 1 ? 's' : '' }}</h2>
@@ -55,9 +23,9 @@
 
 <div class="table-card">
     @if($printables->isEmpty())
-        <div style="text-align:center;padding:60px 20px;color:#9ca3af;font-size:14px;">
+        <div class="admin-empty-state">
             No study materials yet.
-            <a href="{{ route('admin.printables.create') }}" style="color:#3f9087;font-weight:600;">Upload your first one</a>.
+            <a href="{{ route('admin.printables.create') }}">Upload your first one</a>.
         </div>
     @else
         <div class="table-wrap">
@@ -90,16 +58,16 @@
                                 @endif
                             </td>
                             <td>
-                                <div style="font-weight:600;color:#111827;">{{ $printable->title }}</div>
+                                <div class="cell-title">{{ $printable->title }}</div>
                                 @if($printable->description)
-                                    <div style="font-size:12px;color:#9ca3af;margin-top:2px;">{{ Str::limit($printable->description, 55) }}</div>
+                                    <div class="cell-desc">{{ Str::limit($printable->description, 55) }}</div>
                                 @endif
                             </td>
                             <td>
                                 @if($printable->subject)
                                     <span class="subject-tag">{{ $printable->subject }}</span>
                                 @else
-                                    <span style="color:#d1d5db;font-size:13px;">—</span>
+                                    <span class="subject-none">—</span>
                                 @endif
                             </td>
                             <td>
@@ -117,7 +85,7 @@
                                     <span class="badge-inactive">Inactive</span>
                                 @endif
                             </td>
-                            <td style="color:#9ca3af;font-size:12.5px;white-space:nowrap;">
+                            <td class="cell-meta">
                                 {{ $printable->created_at->format('d M Y') }}
                             </td>
                             <td>

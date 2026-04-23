@@ -168,6 +168,8 @@
             .page-content { padding: 20px; }
         }
     </style>
+    @yield('styles')
+    @stack('styles')
 </head>
 <body style="margin:0; background:#f0f2f5;">
 

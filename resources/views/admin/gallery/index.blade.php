@@ -3,44 +3,12 @@
 @section('title', 'Gallery')
 @section('subtitle', 'Manage gallery photos')
 
+@section('styles')
+    <link rel="stylesheet" href="{{ asset('css/admin/admin-common.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/admin/admin-gallery-index.css') }}">
+@endsection
+
 @section('content')
-<style>
-    .page-header   { display:flex; align-items:center; justify-content:space-between; margin-bottom:24px; }
-    .page-header h2 { font-size:16px; font-weight:600; color:#374151; }
-    .add-btn       { display:inline-flex; align-items:center; gap:7px; padding:9px 18px; border-radius:10px; background:#3f9087; color:#fff; font-size:13px; font-weight:600; text-decoration:none; transition:background .15s; }
-    .add-btn:hover { background:#2d6e67; }
-    .add-btn svg   { width:15px; height:15px; }
-
-    /* Photo grid */
-    .gallery-grid  { display:grid; grid-template-columns:repeat(auto-fill, minmax(220px, 1fr)); gap:18px; }
-    .gallery-card  { background:#fff; border-radius:14px; box-shadow:0 1px 4px rgba(0,0,0,.06),0 4px 16px rgba(0,0,0,.04); overflow:hidden; transition:transform .15s, box-shadow .15s; }
-    .gallery-card:hover { transform:translateY(-2px); box-shadow:0 4px 12px rgba(0,0,0,.1),0 8px 24px rgba(0,0,0,.06); }
-
-    .gallery-thumb { width:100%; height:160px; object-fit:cover; display:block; }
-    .gallery-thumb-placeholder { width:100%; height:160px; background:linear-gradient(135deg,#1a5c55,#3f9087); display:flex; align-items:center; justify-content:center; }
-    .gallery-thumb-placeholder svg { width:40px; height:40px; color:rgba(255,255,255,0.5); }
-
-    .gallery-card-body { padding:12px 14px 14px; }
-    .gallery-card-title { font-size:13px; font-weight:600; color:#111827; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-    .gallery-card-caption { font-size:12px; color:#9ca3af; margin-top:3px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-    .gallery-card-meta { display:flex; align-items:center; justify-content:space-between; margin-top:10px; }
-
-    .badge-active   { display:inline-flex; align-items:center; gap:5px; padding:2px 8px; border-radius:20px; font-size:11px; font-weight:600; background:#f0fdf4; color:#16a34a; }
-    .badge-inactive { display:inline-flex; align-items:center; gap:5px; padding:2px 8px; border-radius:20px; font-size:11px; font-weight:600; background:#f3f4f6; color:#6b7280; }
-    .badge-active::before, .badge-inactive::before { content:''; width:5px; height:5px; border-radius:50%; background:currentColor; opacity:.7; }
-
-    .card-actions  { display:flex; gap:5px; }
-    .act-btn       { display:inline-flex; align-items:center; gap:4px; padding:5px 10px; border-radius:7px; font-size:11.5px; font-weight:600; text-decoration:none; border:none; cursor:pointer; transition:all .15s; }
-    .act-edit      { background:#eff6ff; color:#2563eb; }
-    .act-edit:hover { background:#dbeafe; }
-    .act-del       { background:#fef2f2; color:#dc2626; }
-    .act-del:hover { background:#fee2e2; }
-    .act-btn svg   { width:12px; height:12px; }
-
-    .order-badge   { font-size:11px; font-weight:600; color:#9ca3af; background:#f3f4f6; padding:2px 8px; border-radius:20px; }
-
-    .empty-state   { background:#fff; border-radius:14px; box-shadow:0 1px 4px rgba(0,0,0,.06); padding:60px 20px; text-align:center; color:#9ca3af; font-size:14px; }
-</style>
 
 <div class="page-header">
     <h2>{{ $images->count() }} photo{{ $images->count() !== 1 ? 's' : '' }}</h2>
@@ -53,9 +21,9 @@
 </div>
 
 @if($images->isEmpty())
-    <div class="empty-state">
+    <div class="gallery-empty">
         No gallery photos yet.
-        <a href="{{ route('admin.gallery.create') }}" style="color:#3f9087;font-weight:600;">Upload your first photo</a>.
+        <a href="{{ route('admin.gallery.create') }}">Upload your first photo</a>.
     </div>
 @else
     <div class="gallery-grid">
@@ -80,7 +48,7 @@
                     @endif
 
                     <div class="gallery-card-meta">
-                        <div style="display:flex;gap:6px;align-items:center;">
+                        <div class="gallery-badge-group">
                             @if($img->is_active)
                                 <span class="badge-active">Active</span>
                             @else

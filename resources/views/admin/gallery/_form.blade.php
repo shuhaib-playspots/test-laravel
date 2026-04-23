@@ -1,72 +1,8 @@
-<style>
-    .form-grid    { display:grid; grid-template-columns:1fr 320px; gap:24px; align-items:start; }
-    .form-card    { background:#fff; border-radius:14px; box-shadow:0 1px 4px rgba(0,0,0,.06),0 4px 16px rgba(0,0,0,.04); padding:28px; margin-bottom:20px; }
-    .form-card h3 { font-size:14px; font-weight:700; color:#111827; margin-bottom:20px; padding-bottom:12px; border-bottom:1px solid #f3f4f6; display:flex; align-items:center; gap:8px; }
-    .form-card h3 svg { width:16px; height:16px; color:#3f9087; }
-
-    .f-row        { margin-bottom:18px; }
-    .f-row:last-child { margin-bottom:0; }
-    .f-row label  { display:block; font-size:12.5px; font-weight:600; color:#374151; margin-bottom:6px; }
-    .f-row label span { color:#dc2626; }
-    .f-row input[type=text],
-    .f-row input[type=number],
-    .f-row textarea { width:100%; padding:9px 12px; border:1px solid #e5e7eb; border-radius:9px; font-size:13.5px; color:#111827; background:#fff; outline:none; transition:border-color .15s,box-shadow .15s; font-family:inherit; }
-    .f-row input:focus,
-    .f-row textarea:focus { border-color:#3f9087; box-shadow:0 0 0 3px rgba(63,144,135,.12); }
-    .f-row textarea { resize:vertical; min-height:80px; line-height:1.6; }
-    .f-row .hint   { font-size:11.5px; color:#9ca3af; margin-top:5px; }
-    .f-row.error input,
-    .f-row.error textarea { border-color:#dc2626; }
-    .f-error       { font-size:12px; color:#dc2626; margin-top:4px; }
-
-    /* Image upload */
-    .img-upload   { border:2px dashed #e5e7eb; border-radius:12px; padding:24px; text-align:center; cursor:pointer; transition:all .2s; position:relative; }
-    .img-upload:hover { border-color:#3f9087; background:#f8fffe; }
-    .img-upload input { position:absolute; inset:0; opacity:0; cursor:pointer; width:100%; height:100%; }
-    .img-preview  { width:100%; height:220px; object-fit:cover; border-radius:10px; display:block; margin-bottom:12px; }
-    .img-placeholder { width:56px; height:56px; border-radius:14px; background:#e8f5f4; display:flex; align-items:center; justify-content:center; margin:0 auto 10px; }
-    .img-placeholder svg { width:26px; height:26px; color:#3f9087; }
-
-    /* Toggle */
-    .toggle-row   { display:flex; align-items:center; justify-content:space-between; }
-    .toggle-label { font-size:13.5px; color:#374151; font-weight:500; }
-    .toggle-sub   { font-size:12px; color:#9ca3af; margin-top:2px; }
-    .toggle       { position:relative; width:44px; height:24px; flex-shrink:0; }
-    .toggle input { opacity:0; width:0; height:0; }
-    .toggle-slider { position:absolute; cursor:pointer; inset:0; background:#d1d5db; border-radius:20px; transition:.2s; }
-    .toggle-slider::before { content:''; position:absolute; width:18px; height:18px; border-radius:50%; background:#fff; left:3px; bottom:3px; transition:.2s; box-shadow:0 1px 4px rgba(0,0,0,.2); }
-    .toggle input:checked + .toggle-slider { background:#3f9087; }
-    .toggle input:checked + .toggle-slider::before { transform:translateX(20px); }
-
-    /* Submit area */
-    .form-actions { display:flex; gap:12px; align-items:center; }
-    .btn-submit   { padding:11px 28px; border-radius:10px; background:#3f9087; color:#fff; border:none; font-size:14px; font-weight:600; cursor:pointer; transition:background .15s; }
-    .btn-submit:hover { background:#2d6e67; }
-    .btn-cancel   { padding:11px 20px; border-radius:10px; background:#f3f4f6; color:#374151; font-size:14px; font-weight:600; text-decoration:none; transition:background .15s; }
-    .btn-cancel:hover { background:#e5e7eb; }
-
-    /* ── Mobile responsive ── */
-    @media (max-width: 768px) {
-        /* Stack two-column grid to single column */
-        .form-grid { grid-template-columns: 1fr; gap: 0; }
-
-        /* Reduce card padding */
-        .form-card { padding: 18px 16px; margin-bottom: 14px; border-radius: 12px; }
-
-        /* Larger tap targets for inputs (also prevents iOS zoom) */
-        .f-row input[type=text],
-        .f-row input[type=number],
-        .f-row textarea { padding: 10px 12px; font-size: 14px; border-radius: 8px; }
-
-        /* Shorter image preview on mobile */
-        .img-preview { height: 180px; }
-
-        /* Stack action buttons full-width */
-        .form-actions { flex-direction: column; gap: 10px; }
-        .btn-submit,
-        .btn-cancel { width: 100%; text-align: center; padding: 13px; font-size: 14px; }
-    }
-</style>
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('css/admin/admin-common.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/admin/admin-careers-form.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/admin/admin-gallery-form.css') }}">
+@endpush
 
 <form method="POST"
       action="{{ $action }}"
@@ -92,7 +28,7 @@
                         <img src="{{ Storage::url($image->image_path) }}"
                              alt="{{ $image->title ?? 'Gallery image' }}"
                              class="img-preview" id="img-preview">
-                        <p style="font-size:12px;color:#9ca3af;margin-top:8px;">Click to replace image</p>
+                        <p class="img-replace-hint">Click to replace image</p>
                     @else
                         <div id="img-placeholder-ui">
                             <div class="img-placeholder">
@@ -101,14 +37,14 @@
                                 </svg>
                             </div>
                             <p><strong>Click to upload</strong> photo</p>
-                            <p style="font-size:12px;margin-top:4px;">WebP, JPG, PNG — max 4 MB</p>
+                            <p class="img-upload-hint">WebP, JPG, PNG — max 4 MB</p>
                         </div>
                     @endif
                     <input type="file" id="image-input" name="image"
                            accept="image/webp,image/jpeg,image/png"
                            onchange="previewImage(this)">
                 </div>
-                @error('image')<p class="f-error" style="margin-top:6px;">{{ $message }}</p>@enderror
+                @error('image')<p class="f-error upload-error">{{ $message }}</p>@enderror
             </div>
         </div>
 

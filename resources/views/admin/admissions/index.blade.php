@@ -131,7 +131,7 @@
                     @foreach ($admissions as $admission)
                         <tr>
                             <td style="color:#9ca3af; font-size:12px; font-family:monospace;">
-                                #{{ $admission->id }}
+                                {{ $admission->id }}
                             </td>
 
                             <td>

@@ -1,0 +1,38 @@
+/* ============================================================
+   Admin Careers – Index Page Styles
+   ============================================================ */
+
+/* ── Table card wrapper ── */
+.table-card    { background: #fff; border-radius: 14px; box-shadow: 0 1px 4px rgba(0,0,0,.06), 0 4px 16px rgba(0,0,0,.04); overflow: hidden; }
+.table-wrap    { overflow-x: auto; }
+
+/* ── Data table ── */
+table          { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+thead tr       { background: #f8fffe; border-bottom: 2px solid #f0f2f5; }
+thead th       { padding: 13px 16px; text-align: left; font-size: 11px; font-weight: 700; color: #9ca3af; text-transform: uppercase; letter-spacing: .07em; white-space: nowrap; }
+tbody tr       { border-bottom: 1px solid #f3f4f6; transition: background .1s; }
+tbody tr:last-child { border-bottom: none; }
+tbody tr:hover { background: #f9fffe; }
+tbody td       { padding: 14px 16px; vertical-align: middle; }
+
+/* ── Cell helpers ── */
+.cell-title        { font-weight: 600; color: #111827; }
+.cell-desc         { font-size: 12px; color: #9ca3af; margin-top: 2px; }
+.cell-muted        { color: #6b7280; font-size: 13px; }
+.cell-meta         { color: #9ca3af; font-size: 12.5px; white-space: nowrap; }
+
+/* ── Deadline variants ── */
+.deadline-text  { font-size: 12.5px; color: #374151; }
+.deadline-soon  { color: #d97706; font-weight: 600; }
+.deadline-none  { color: #d1d5db; font-size: 13px; }
+.deadline-expired { font-size: 12.5px; color: #dc2626; font-weight: 600; }
+.deadline-days  { font-size: 11px; }
+
+/* ── Row action buttons ── */
+.actions       { display: flex; align-items: center; gap: 6px; }
+.act-btn       { display: inline-flex; align-items: center; gap: 5px; padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: 600; text-decoration: none; border: none; cursor: pointer; transition: all .15s; }
+.act-edit      { background: #eff6ff; color: #2563eb; }
+.act-edit:hover { background: #dbeafe; }
+.act-del       { background: #fef2f2; color: #dc2626; }
+.act-del:hover { background: #fee2e2; }
+.act-btn svg   { width: 13px; height: 13px; }
