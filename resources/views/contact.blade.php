@@ -1,309 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Us &mdash; Nabaath Learning Point</title>
-    <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=inter:300,400,500,600,700,800,900|amiri:400,700" rel="stylesheet"/>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <link rel="stylesheet" href="{{ asset('css/layout.css') }}">
-    <style>
-        /* ── Section base ── */
-        .section { padding: 90px 24px; }
-        .section-inner { max-width: 1200px; margin: 0 auto; }
-        .section-tag {
-            display: inline-flex; align-items: center; gap: 6px;
-            background: var(--brand-light); color: var(--brand);
-            padding: 5px 14px; border-radius: 50px;
-            font-size: 12px; font-weight: 600; letter-spacing: .5px;
-            text-transform: uppercase; margin-bottom: 16px;
-        }
-        .section-tag.gold-tag { background: var(--gold-light); color: var(--gold); }
-        .section-title {
-            font-size: clamp(26px, 4vw, 42px); font-weight: 800;
-            color: #1a2e2c; line-height: 1.2; margin-bottom: 14px;
-        }
-        .section-title .accent { color: var(--brand); }
-        .section-title .gold { color: var(--gold); }
-        .section-sub {
-            font-size: 16px; line-height: 1.8; color: #5a7270;
-            max-width: 620px;
-        }
-        .section-header { margin-bottom: 60px; }
-        .section-header.center { text-align: center; }
-        .section-header.center .section-sub { margin: 0 auto; }
+@extends('layout')
 
-        /* ── Hero ── */
-        .hero {
-            min-height: 60vh;
-            background: linear-gradient(135deg, #0d3532 0%, #1a5c55 45%, #2d8078 75%, #3f9087 100%);
-            display: flex; align-items: center; justify-content: center;
-            position: relative; overflow: hidden;
-            padding: 120px 24px 80px;
-        }
-        .hero-bg-pattern {
-            position: absolute; inset: 0; opacity: .05;
-            background-image:
-                repeating-linear-gradient(45deg, #fff 0, #fff 1px, transparent 0, transparent 50%),
-                repeating-linear-gradient(-45deg, #fff 0, #fff 1px, transparent 0, transparent 50%);
-            background-size: 40px 40px;
-        }
-        .hero-orb {
-            position: absolute; border-radius: 50%;
-            background: rgba(255,255,255,0.05);
-            animation: float 8s ease-in-out infinite;
-        }
-        .hero-orb-1 { width: 400px; height: 400px; top: -100px; right: -80px; animation-delay: 0s; }
-        .hero-orb-2 { width: 250px; height: 250px; bottom: -60px; left: -40px; animation-delay: 3s; }
-        @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-18px)} }
-        .arabic-letter {
-            position: absolute; font-family: 'Amiri', serif;
-            color: rgba(255,255,255,0.1); font-weight: 700;
-            animation: floatLetter 10s ease-in-out infinite; pointer-events: none;
-        }
-        @keyframes floatLetter { 0%,100%{transform:translateY(0) rotate(0deg)} 50%{transform:translateY(-12px) rotate(4deg)} }
-        .hero-content { position: relative; z-index: 2; text-align: center; max-width: 760px; }
-        .hero-badge {
-            display: inline-flex; align-items: center; gap: 8px;
-            background: rgba(201,168,76,0.2); border: 1px solid rgba(201,168,76,0.4);
-            color: #f0d080; padding: 6px 16px; border-radius: 50px;
-            font-size: 12px; font-weight: 600; letter-spacing: .5px;
-            text-transform: uppercase; margin-bottom: 20px;
-        }
-        .hero-title {
-            font-size: clamp(36px, 5.5vw, 64px); font-weight: 800;
-            color: #fff; line-height: 1.1; margin-bottom: 20px;
-        }
-        .hero-title .accent { color: #7dd3c9; }
-        .hero-title .gold   { color: #f0d080; }
-        .hero-desc {
-            font-size: 17px; line-height: 1.75; color: rgba(255,255,255,0.72);
-            max-width: 580px; margin: 0 auto 36px;
-        }
-        .hero-breadcrumb {
-            display: flex; align-items: center; justify-content: center; gap: 8px;
-            font-size: 13px; color: rgba(255,255,255,0.5);
-        }
-        .hero-breadcrumb a { color: rgba(255,255,255,0.6); text-decoration: none; }
-        .hero-breadcrumb a:hover { color: #7dd3c9; }
-        .hero-breadcrumb .sep { opacity: .4; }
+@section('title', 'Contact Us &mdash; Nabaath Learning Point')
 
-        /* ── Contact Info Cards ── */
-        .info-grid {
-            display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px;
-            margin-bottom: 80px;
-        }
-        .info-card {
-            padding: 32px 24px; border-radius: 20px; background: #fff;
-            box-shadow: 0 2px 16px rgba(63,144,135,0.08);
-            border-top: 4px solid var(--brand);
-            text-align: center;
-            transition: transform .3s, box-shadow .3s;
-        }
-        .info-card:hover { transform: translateY(-5px); box-shadow: 0 12px 40px rgba(63,144,135,0.16); }
-        .info-card:nth-child(2) { border-top-color: var(--gold); }
-        .info-card:nth-child(3) { border-top-color: #7dd3c9; }
-        .info-card:nth-child(4) { border-top-color: #25d366; }
-        .info-icon {
-            width: 60px; height: 60px; border-radius: 50%;
-            background: var(--brand-light); display: flex; align-items: center; justify-content: center;
-            margin: 0 auto 18px;
-        }
-        .info-card:nth-child(2) .info-icon { background: var(--gold-light); }
-        .info-card:nth-child(3) .info-icon { background: #e8f5f4; }
-        .info-card:nth-child(4) .info-icon { background: #e9fbe9; }
-        .info-card h3 { font-size: 15px; font-weight: 700; color: #1a2e2c; margin-bottom: 8px; }
-        .info-card p, .info-card a {
-            font-size: 14px; color: #5a7270; line-height: 1.75;
-            text-decoration: none; display: block;
-            transition: color .2s;
-        }
-        .info-card a:hover { color: var(--brand); }
+@section('css')
+<link rel="stylesheet" href="{{ asset('css/common.css') }}">
+<link rel="stylesheet" href="{{ asset('css/contact.css') }}">
+@endsection
 
-        /* ── Contact Form + Map layout ── */
-        .contact-layout {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start;
-        }
-
-        /* ── Form ── */
-        .contact-form-wrap {
-            background: #fff; border-radius: 24px;
-            padding: 44px 40px;
-            box-shadow: 0 4px 24px rgba(63,144,135,0.1);
-            border: 1px solid rgba(63,144,135,0.08);
-        }
-        .form-title { font-size: 22px; font-weight: 800; color: #1a2e2c; margin-bottom: 6px; }
-        .form-sub   { font-size: 14px; color: #5a7270; margin-bottom: 32px; }
-        .form-row   { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-        .form-group { margin-bottom: 20px; }
-        .form-group label {
-            display: block; font-size: 13px; font-weight: 600;
-            color: #1a2e2c; margin-bottom: 8px;
-        }
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            width: 100%; padding: 12px 16px; border-radius: 12px;
-            border: 1.5px solid rgba(63,144,135,0.2);
-            font-size: 14px; color: #1a2e2c; background: #fafffe;
-            font-family: inherit; outline: none;
-            transition: border-color .2s, box-shadow .2s;
-            box-sizing: border-box;
-        }
-        .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
-            border-color: var(--brand);
-            box-shadow: 0 0 0 3px rgba(63,144,135,0.12);
-        }
-        .form-group textarea { resize: vertical; min-height: 130px; }
-        .form-submit {
-            width: 100%; padding: 14px; border-radius: 50px;
-            background: var(--brand); color: #fff;
-            font-size: 15px; font-weight: 700; font-family: inherit;
-            border: none; cursor: pointer;
-            display: flex; align-items: center; justify-content: center; gap: 8px;
-            transition: all .2s;
-        }
-        .form-submit:hover { background: var(--brand-dark); transform: translateY(-1px); box-shadow: 0 8px 24px rgba(63,144,135,0.35); }
-
-        /* ── Alert messages ── */
-        .alert {
-            padding: 14px 18px; border-radius: 12px; margin-bottom: 24px;
-            font-size: 14px; font-weight: 500;
-        }
-        .alert-success { background: #e6f7f4; color: #1a5c55; border: 1px solid rgba(63,144,135,0.25); }
-        .alert-error   { background: #fff0f0; color: #b53a3a; border: 1px solid rgba(181,58,58,0.25); }
-
-        /* ── Side info panel ── */
-        .contact-side { display: flex; flex-direction: column; gap: 24px; }
-        .side-card {
-            background: #fff; border-radius: 20px; padding: 28px 28px;
-            box-shadow: 0 2px 16px rgba(63,144,135,0.08);
-            border: 1px solid rgba(63,144,135,0.08);
-        }
-        .side-card h4 { font-size: 16px; font-weight: 700; color: #1a2e2c; margin-bottom: 16px; }
-        .hours-list { list-style: none; padding: 0; margin: 0; }
-        .hours-list li {
-            display: flex; justify-content: space-between;
-            font-size: 13.5px; color: #5a7270; padding: 10px 0;
-            border-bottom: 1px solid rgba(63,144,135,0.08);
-        }
-        .hours-list li:last-child { border-bottom: none; }
-        .hours-list .day   { font-weight: 600; color: #1a2e2c; }
-        .hours-list .badge-closed {
-            background: #ffe8e8; color: #b53a3a;
-            padding: 2px 10px; border-radius: 20px; font-size: 11px; font-weight: 700;
-        }
-        .hours-list .badge-open {
-            background: var(--brand-light); color: var(--brand);
-            padding: 2px 10px; border-radius: 20px; font-size: 11px; font-weight: 700;
-        }
-        .social-links { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 4px; }
-        .social-link {
-            display: flex; align-items: center; gap: 8px;
-            padding: 10px 16px; border-radius: 50px;
-            font-size: 13px; font-weight: 600; text-decoration: none;
-            transition: all .2s;
-        }
-        .social-link.whatsapp { background: #e9fbe9; color: #1a5c1a; }
-        .social-link.facebook { background: #e8eef8; color: #1a3a6c; }
-        .social-link.instagram { background: #fde8f5; color: #6c1a4a; }
-        .social-link:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.12); }
-
-        /* ── FAQ ── */
-        .faq-section { background: #f8fffe; }
-        .faq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; max-width: 960px; margin: 0 auto; }
-        .faq-item {
-            background: #fff; border-radius: 16px; padding: 24px 26px;
-            box-shadow: 0 2px 12px rgba(63,144,135,0.07);
-            border: 1px solid rgba(63,144,135,0.08);
-        }
-        .faq-item h4 { font-size: 15px; font-weight: 700; color: #1a2e2c; margin-bottom: 10px; display: flex; gap: 10px; align-items: flex-start; }
-        .faq-item h4 .faq-q { flex-shrink: 0; width: 24px; height: 24px; border-radius: 50%; background: var(--brand-light); color: var(--brand); font-size: 13px; font-weight: 800; display: flex; align-items: center; justify-content: center; margin-top: 1px; }
-        .faq-item p { font-size: 13.5px; color: #5a7270; line-height: 1.7; }
-
-        /* ── CTA ── */
-        .cta-section {
-            background: linear-gradient(135deg, var(--brand) 0%, var(--brand-dark) 100%);
-            padding: 80px 24px; text-align: center; position: relative; overflow: hidden;
-        }
-        .cta-section::before {
-            content: 'نبات'; font-family: 'Amiri', serif; font-size: 200px;
-            color: rgba(255,255,255,0.04); position: absolute;
-            top: 50%; left: 50%; transform: translate(-50%,-50%);
-            pointer-events: none;
-        }
-        .cta-section h2 { font-size: clamp(26px,4vw,42px); font-weight: 800; color: #fff; margin-bottom: 14px; position: relative; z-index: 1; }
-        .cta-section p  { font-size: 16px; color: rgba(255,255,255,0.75); margin-bottom: 36px; position: relative; z-index: 1; }
-        .cta-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; position: relative; z-index: 1; }
-        .btn-primary {
-            background: #fff; color: var(--brand-dark);
-            padding: 14px 32px; border-radius: 50px;
-            font-size: 15px; font-weight: 700;
-            text-decoration: none; transition: all .2s;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.2);
-            display: inline-flex; align-items: center; gap: 8px;
-        }
-        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(0,0,0,0.3); }
-        .btn-outline {
-            background: transparent; border: 2px solid rgba(255,255,255,0.5);
-            color: #fff; padding: 14px 28px; border-radius: 50px;
-            font-size: 15px; font-weight: 600;
-            text-decoration: none; transition: all .2s;
-            display: inline-flex; align-items: center; gap: 8px;
-        }
-        .btn-outline:hover { background: rgba(255,255,255,0.1); border-color: #fff; }
-
-        /* ── Footer ── */
-        .footer { background: #0d3532; color: rgba(255,255,255,0.7); padding: 64px 24px 32px; }
-        .footer-inner { max-width: 1200px; margin: 0 auto; }
-        .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 48px; }
-        .footer-brand strong { display: block; color: #fff; font-size: 18px; margin-bottom: 4px; }
-        .footer-brand p { font-size: 13px; line-height: 1.7; margin-top: 12px; }
-        .footer-col h4 { color: #fff; font-size: 14px; font-weight: 600; margin-bottom: 16px; }
-        .footer-col a { display: block; color: rgba(255,255,255,0.6); text-decoration: none; font-size: 13px; margin-bottom: 10px; transition: color .2s; }
-        .footer-col a:hover { color: var(--brand-mid); }
-        .footer-bottom { border-top: 1px solid rgba(255,255,255,0.08); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; font-size: 12px; }
-
-        /* ── Floating buttons ── */
-        .float-btn { position: fixed; bottom: 100px; z-index: 999; display: flex; flex-direction: column; align-items: center; gap: 6px; }
-        .float-btn.right { right: 24px; }
-        .float-btn.left  { left: 24px; }
-        .float-circle { width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; transition: all .3s; box-shadow: 0 6px 20px rgba(0,0,0,0.2); position: relative; }
-        .float-circle.get-started { background: var(--brand); }
-        .float-circle.call-btn    { background: #25d366; }
-        .float-circle:hover { transform: scale(1.1) translateY(-2px); }
-        .float-label { font-size: 10px; font-weight: 600; color: #fff; background: rgba(0,0,0,0.6); padding: 3px 8px; border-radius: 10px; white-space: nowrap; }
-        .float-pulse { position: absolute; border-radius: 50%; animation: pulse 2s ease-out infinite; }
-        .float-circle.get-started .float-pulse { background: var(--brand); width: 56px; height: 56px; }
-        .float-circle.call-btn    .float-pulse { background: #25d366; width: 56px; height: 56px; }
-        @keyframes pulse { 0%{transform:scale(1);opacity:.7} 100%{transform:scale(2);opacity:0} }
-
-        /* ── Responsive ── */
-        @media(max-width:1024px) {
-            .info-grid     { grid-template-columns: repeat(2, 1fr); }
-            .contact-layout { grid-template-columns: 1fr; }
-            .faq-grid      { grid-template-columns: 1fr; }
-            .footer-top    { grid-template-columns: 1fr 1fr; }
-        }
-        @media(max-width:768px) {
-            .info-grid     { grid-template-columns: 1fr 1fr; }
-            .form-row      { grid-template-columns: 1fr; }
-            .footer-top    { grid-template-columns: 1fr; }
-            .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
-        }
-        @media(max-width:480px) {
-            .info-grid     { grid-template-columns: 1fr; }
-            .contact-form-wrap { padding: 28px 20px; }
-        }
-    </style>
-</head>
-<body>
-
-{{-- ── NAVBAR ── --}}
-@include('nav-bar')
+@section('content')
 
 {{-- ── HERO ── --}}
 <section class="hero">
@@ -333,7 +37,7 @@
         <div class="hero-breadcrumb">
             <a href="{{ route('home') }}">Home</a>
             <span class="sep">/</span>
-            <span style="color:rgba(255,255,255,0.9);">Contact Us</span>
+            <span class="breadcrumb-current">Contact Us</span>
         </div>
     </div>
 </section>
@@ -350,7 +54,7 @@
                 </div>
                 <h3>Phone</h3>
                 <a href="tel:+1234567890">+1 234 567 890</a>
-                <p style="font-size:12px;margin-top:6px;">Mon–Fri, 9am–6pm</p>
+                <p class="info-card-hint">Mon–Fri, 9am–6pm</p>
             </div>
 
             <div class="info-card">
@@ -361,7 +65,7 @@
                 </div>
                 <h3>Email</h3>
                 <a href="mailto:info@nabaath.com">info@nabaath.com</a>
-                <p style="font-size:12px;margin-top:6px;">We reply within 24 hours</p>
+                <p class="info-card-hint">We reply within 24 hours</p>
             </div>
 
             <div class="info-card">
@@ -382,7 +86,7 @@
                 </div>
                 <h3>WhatsApp</h3>
                 <a href="https://wa.me/1234567890" target="_blank" rel="noopener">Message Us</a>
-                <p style="font-size:12px;margin-top:6px;">Quick responses guaranteed</p>
+                <p class="info-card-hint">Quick responses guaranteed</p>
             </div>
         </div>
 
@@ -395,7 +99,7 @@
 
                 @if(session('success'))
                     <div class="alert alert-success">
-                        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" style="display:inline;margin-right:6px;vertical-align:middle;">
+                        <svg class="icon-inline" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
                         </svg>
                         {{ session('success') }}
@@ -404,7 +108,7 @@
 
                 @if($errors->any())
                     <div class="alert alert-error">
-                        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" style="display:inline;margin-right:6px;vertical-align:middle;">
+                        <svg class="icon-inline" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"/>
                         </svg>
                         Please fix the errors below.
@@ -415,18 +119,18 @@
                     @csrf
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="name">Your Name <span style="color:#b53a3a;">*</span></label>
+                            <label for="name">Your Name <span class="required">*</span></label>
                             <input type="text" id="name" name="name" placeholder="e.g. Ahmed Ali"
                                    value="{{ old('name') }}"
-                                   style="{{ $errors->has('name') ? 'border-color:#b53a3a;' : '' }}">
-                            @error('name')<p style="color:#b53a3a;font-size:12px;margin-top:4px;">{{ $message }}</p>@enderror
+                                   class="{{ $errors->has('name') ? 'input-error' : '' }}">
+                            @error('name')<p class="field-error">{{ $message }}</p>@enderror
                         </div>
                         <div class="form-group">
-                            <label for="email">Email Address <span style="color:#b53a3a;">*</span></label>
+                            <label for="email">Email Address <span class="required">*</span></label>
                             <input type="email" id="email" name="email" placeholder="you@example.com"
                                    value="{{ old('email') }}"
-                                   style="{{ $errors->has('email') ? 'border-color:#b53a3a;' : '' }}">
-                            @error('email')<p style="color:#b53a3a;font-size:12px;margin-top:4px;">{{ $message }}</p>@enderror
+                                   class="{{ $errors->has('email') ? 'input-error' : '' }}">
+                            @error('email')<p class="field-error">{{ $message }}</p>@enderror
                         </div>
                     </div>
 
@@ -437,9 +141,9 @@
                                    value="{{ old('phone') }}">
                         </div>
                         <div class="form-group">
-                            <label for="subject">Subject <span style="color:#b53a3a;">*</span></label>
+                            <label for="subject">Subject <span class="required">*</span></label>
                             <select id="subject" name="subject"
-                                    style="{{ $errors->has('subject') ? 'border-color:#b53a3a;' : '' }}">
+                                    class="{{ $errors->has('subject') ? 'input-error' : '' }}">
                                 <option value="" disabled {{ old('subject') ? '' : 'selected' }}>Select a subject</option>
                                 <option value="Enrolment Enquiry"    {{ old('subject') == 'Enrolment Enquiry'    ? 'selected' : '' }}>Enrolment Enquiry</option>
                                 <option value="Programme Information" {{ old('subject') == 'Programme Information' ? 'selected' : '' }}>Programme Information</option>
@@ -448,15 +152,15 @@
                                 <option value="Online Classes"        {{ old('subject') == 'Online Classes'       ? 'selected' : '' }}>Online Classes</option>
                                 <option value="Other"                 {{ old('subject') == 'Other'                ? 'selected' : '' }}>Other</option>
                             </select>
-                            @error('subject')<p style="color:#b53a3a;font-size:12px;margin-top:4px;">{{ $message }}</p>@enderror
+                            @error('subject')<p class="field-error">{{ $message }}</p>@enderror
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="message">Message <span style="color:#b53a3a;">*</span></label>
+                        <label for="message">Message <span class="required">*</span></label>
                         <textarea id="message" name="message" placeholder="Write your message here..."
-                                  style="{{ $errors->has('message') ? 'border-color:#b53a3a;' : '' }}">{{ old('message') }}</textarea>
-                        @error('message')<p style="color:#b53a3a;font-size:12px;margin-top:4px;">{{ $message }}</p>@enderror
+                                  class="{{ $errors->has('message') ? 'input-error' : '' }}">{{ old('message') }}</textarea>
+                        @error('message')<p class="field-error">{{ $message }}</p>@enderror
                     </div>
 
                     <button type="submit" class="form-submit">
@@ -472,7 +176,7 @@
             <div class="contact-side">
                 <div class="side-card">
                     <h4>
-                        <svg width="16" height="16" fill="none" stroke="#3f9087" stroke-width="2" viewBox="0 0 24 24" style="display:inline;margin-right:6px;vertical-align:middle;">
+                        <svg class="icon-inline" width="16" height="16" fill="none" stroke="#3f9087" stroke-width="2" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/>
                         </svg>
                         Office Hours
@@ -487,7 +191,7 @@
 
                 <div class="side-card">
                     <h4>
-                        <svg width="16" height="16" fill="none" stroke="#3f9087" stroke-width="2" viewBox="0 0 24 24" style="display:inline;margin-right:6px;vertical-align:middle;">
+                        <svg class="icon-inline" width="16" height="16" fill="none" stroke="#3f9087" stroke-width="2" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M7.217 10.907a2.25 2.25 0 100 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186l9.566-5.314m-9.566 7.5l9.566 5.314m0 0a2.25 2.25 0 103.935 2.186 2.25 2.25 0 00-3.935-2.186zm0-12.814a2.25 2.25 0 103.933-2.185 2.25 2.25 0 00-3.933 2.185z"/>
                         </svg>
                         Follow Us
@@ -516,17 +220,16 @@
 
                 <div class="side-card">
                     <h4>
-                        <svg width="16" height="16" fill="none" stroke="#3f9087" stroke-width="2" viewBox="0 0 24 24" style="display:inline;margin-right:6px;vertical-align:middle;">
+                        <svg class="icon-inline" width="16" height="16" fill="none" stroke="#3f9087" stroke-width="2" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/>
                         </svg>
                         Find Us
                     </h4>
-                    <p style="font-size:13.5px;color:#5a7270;line-height:1.7;margin-bottom:14px;">
+                    <p class="side-card-address">
                         123 Learning Lane, Your City, Country.<br>
                         Near the central mosque — look for the green sign.
                     </p>
-                    <a href="https://maps.google.com" target="_blank" rel="noopener"
-                       style="display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--brand);text-decoration:none;">
+                    <a href="https://maps.google.com" target="_blank" rel="noopener" class="map-link">
                         <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75"/>
                         </svg>
@@ -621,6 +324,4 @@
     <span class="float-label">Call Us</span>
 </div>
 
-<script src="{{ asset('js/common.js') }}"></script>
-</body>
-</html>
+@endsection

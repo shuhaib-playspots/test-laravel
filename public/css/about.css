@@ -258,14 +258,20 @@
 }
 
 @media (max-width: 768px) {
-    .timeline::before { left: 24px; }
-    .tl-item { grid-template-columns: 48px 1fr; }
+    .timeline::before { left: 22px; }
+    .tl-item {
+        grid-template-columns: 44px 1fr;
+        gap: 0 14px;
+        margin-bottom: 36px;
+    }
     .tl-item.left  .tl-card,
-    .tl-item.right .tl-card  { grid-column: 2; }
+    .tl-item.right .tl-card  { grid-column: 2; grid-row: 1; }
     .tl-item.left  .tl-empty,
     .tl-item.right .tl-empty { display: none; }
-    .tl-center { grid-column: 1; padding-top: 8px; }
-    .tl-year   { left: 48px; transform: none; top: 50px; }
+    .tl-center { grid-column: 1; grid-row: 1; padding-top: 0; gap: 6px; }
+    .tl-year   { position: static; transform: none; font-size: 10px; padding: 2px 6px; }
+    .tl-card   { padding: 18px 16px; }
+    .tl-card h4 { font-size: 15px; }
     .hl-grid      { grid-template-columns: 1fr 1fr; }
     .achieve-grid { grid-template-columns: 1fr; }
 }

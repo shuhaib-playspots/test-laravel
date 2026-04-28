@@ -10,7 +10,7 @@
 @section('content')
 
 {{-- ── HERO ── --}}
-<section class="hero" style="background: linear-gradient(135deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.65) 100%), url('{{ asset('images/img1.webp') }}') center/cover no-repeat;">
+<section class="hero" style="background: linear-gradient(135deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.65) 100%), url('{{ asset('images/img1.webp') }}') center/cover no-repeat;background-position:inherit;">
     <div class="hero-orb hero-orb-1"></div>
     <div class="hero-orb hero-orb-2"></div>
     <span class="arabic-letter" style="font-size:80px;top:20%;left:6%;animation-delay:0s;">ن</span>

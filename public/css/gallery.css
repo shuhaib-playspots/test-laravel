@@ -1,4 +1,9 @@
 /* ── Hero ── */
+.gallery-hero {
+    background: linear-gradient(135deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.65) 100%),
+                url('/images/gallery-cover.webp') center/cover no-repeat;
+}
+
 .hero {
     min-height: 48vh;
     display: flex;

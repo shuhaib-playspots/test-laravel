@@ -39,6 +39,8 @@
 
 .hero-breadcrumb a { color: rgba(255, 255, 255, 0.6); text-decoration: none; }
 .hero-breadcrumb a:hover { color: #7dd3c9; }
+.hero-breadcrumb .sep { opacity: .4; }
+.breadcrumb-current { color: rgba(255, 255, 255, 0.9); }
 
 .hero-orb {
     position: absolute;

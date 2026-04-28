@@ -11,6 +11,7 @@
             <a href="{{ route('about') }}" @class(['active' => request()->routeIs('about')])>About Us</a>
             <a href="{{ route('courses.index') }}" @class(['active' => request()->routeIs('courses.*')])>Courses</a>
             <a href="{{ route('gallery.index') }}" @class(['active' => request()->routeIs('gallery.*')])>Gallery</a>
+            <a href="{{ route('posts.index') }}" @class(['active' => request()->routeIs('posts.*')])>Posts</a>
             <a href="{{ route('printables.index') }}" @class(['active' => request()->routeIs('printables.*')])>Printables</a>
             <a href="{{ route('careers.index') }}" @class(['active' => request()->routeIs('careers.*')])>Careers</a>
             <a href="{{ route('contact') }}" @class(['active' => request()->routeIs('contact')])>Contact</a>
@@ -41,6 +42,7 @@
                     ['About Us',    '{{ route("about") }}'],
                     ['Courses',     '{{ route("courses.index") }}'],
                     ['Gallery',     '{{ route("gallery.index") }}'],
+                    ['Posts',       '{{ route("posts.index") }}'],
                     ['Printables',  '{{ route("printables.index") }}'],
                     ['Careers',     '{{ route("careers.index") }}'],
                     ['Programs',    '{{ route("home") }}#programs'],

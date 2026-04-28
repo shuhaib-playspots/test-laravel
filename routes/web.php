@@ -5,12 +5,14 @@ use App\Http\Controllers\AdmissionController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\PrintableController;
 use App\Http\Controllers\GalleryController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\Admin\AdmissionController as AdminAdmissionController;
 use App\Http\Controllers\Admin\CourseController as AdminCourseController;
 use App\Http\Controllers\Admin\PrintableController as AdminPrintableController;
 use App\Http\Controllers\Admin\GalleryController as AdminGalleryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\CareerController as AdminCareerController;
+use App\Http\Controllers\Admin\PostController as AdminPostController;
 use App\Http\Controllers\CareerController;
 use App\Http\Controllers\ContactController;
 use Illuminate\Support\Facades\Route;
@@ -29,6 +31,9 @@ Route::get('/courses/{slug}', [CourseController::class, 'show'])->name('courses.
 
 // Gallery
 Route::get('/gallery', [GalleryController::class, 'index'])->name('gallery.index');
+
+// Posts
+Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
 
 // Printables
 Route::get('/printables', [PrintableController::class, 'index'])->name('printables.index');
@@ -61,4 +66,5 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::resource('printables', AdminPrintableController::class)->except(['show']);
     Route::resource('gallery', AdminGalleryController::class)->except(['show']);
     Route::resource('careers', AdminCareerController::class)->except(['show']);
+    Route::resource('posts', AdminPostController::class)->except(['show', 'edit', 'update']);
 });
