@@ -1,6 +1,29 @@
 @push('styles')
     <link rel="stylesheet" href="{{ asset('css/admin/admin-common.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/admin/admin-careers-form.css') }}">
     <link rel="stylesheet" href="{{ asset('css/admin/admin-gallery-form.css') }}">
+    <style>
+        /* ── Post form: equal 50/50 columns ── */
+        .post-form-grid { grid-template-columns: 1fr 1fr; }
+
+        /* ── Compact upload zone ── */
+        .post-img-upload { padding: 16px 12px; }
+        .post-img-upload .img-placeholder { width: 40px; height: 40px; border-radius: 10px; margin-bottom: 8px; }
+        .post-img-upload .img-placeholder svg { width: 20px; height: 20px; }
+        .post-img-upload p { font-size: 12.5px; }
+        .post-img-upload .img-upload-hint { font-size: 11px; }
+        .post-img-upload .img-preview { height: 150px; }
+
+        /* ── Tall caption textarea ── */
+        .post-caption-area { min-height: 220px; }
+
+        @media (max-width: 768px) {
+            .post-form-grid { grid-template-columns: 1fr; }
+            .post-img-upload { padding: 14px 12px; }
+            .post-img-upload .img-preview { height: 180px; }
+            .post-caption-area { min-height: 160px; }
+        }
+    </style>
 @endpush
 
 <form method="POST"
@@ -9,7 +32,7 @@
       id="post-form">
     @csrf
 
-    <div class="form-grid">
+    <div class="form-grid post-form-grid">
 
         {{-- ── Left: image upload ── --}}
         <div>
@@ -21,7 +44,7 @@
                     Photo *
                 </h3>
 
-                <div class="img-upload" id="img-drop" onclick="document.getElementById('image-input').click()">
+                <div class="img-upload post-img-upload" id="img-drop" onclick="document.getElementById('image-input').click()">
                     <div id="img-placeholder-ui">
                         <div class="img-placeholder">
                             <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
@@ -51,7 +74,7 @@
 
                 <div class="f-row {{ $errors->has('caption') ? 'error' : '' }}">
                     <label>Caption</label>
-                    <textarea name="caption" rows="4"
+                    <textarea name="caption" rows="10" class="post-caption-area"
                               placeholder="Add a caption for this post…">{{ old('caption') }}</textarea>
                     <p class="hint">Optional — shown below the image in the feed.</p>
                     @error('caption')<p class="f-error">{{ $message }}</p>@enderror
