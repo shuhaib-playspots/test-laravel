@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\CareerController as AdminCareerController;
 use App\Http\Controllers\Admin\PostController as AdminPostController;
 use App\Http\Controllers\CareerController;
+use App\Http\Controllers\JobApplicationController;
 use App\Http\Controllers\ContactController;
 use Illuminate\Support\Facades\Route;
 
@@ -39,8 +40,9 @@ Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
 Route::get('/printables', [PrintableController::class, 'index'])->name('printables.index');
 Route::get('/printables/{id}/download', [PrintableController::class, 'download'])->name('printables.download');
 
-// Careers
-Route::get('/careers', [CareerController::class, 'index'])->name('careers.index');
+// Jobs
+Route::get('/jobs', [CareerController::class, 'index'])->name('jobs.index');
+Route::post('/jobs/apply', [JobApplicationController::class, 'store'])->name('jobs.apply');
 
 // Contact
 Route::get('/contact', [ContactController::class, 'show'])->name('contact');
@@ -65,6 +67,7 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::resource('courses', AdminCourseController::class)->except(['show']);
     Route::resource('printables', AdminPrintableController::class)->except(['show']);
     Route::resource('gallery', AdminGalleryController::class)->except(['show']);
-    Route::resource('careers', AdminCareerController::class)->except(['show']);
+    Route::resource('jobs', AdminCareerController::class)->except(['show']);
+    Route::get('/jobs-applications', [\App\Http\Controllers\Admin\JobApplicationAdminController::class, 'index'])->name('jobs.applications');
     Route::resource('posts', AdminPostController::class)->except(['show', 'edit', 'update']);
 });

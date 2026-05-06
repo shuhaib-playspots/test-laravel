@@ -14,6 +14,6 @@ class CareerController extends Controller
     {
         $careers = $this->service->all();
 
-        return view('careers.index', compact('careers'));
+        return view('jobs.index', compact('careers'));
     }
 }

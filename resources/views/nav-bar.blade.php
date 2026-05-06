@@ -13,7 +13,7 @@
             <a href="{{ route('gallery.index') }}" @class(['active' => request()->routeIs('gallery.*')])>Gallery</a>
             <a href="{{ route('posts.index') }}" @class(['active' => request()->routeIs('posts.*')])>Posts</a>
             <a href="{{ route('printables.index') }}" @class(['active' => request()->routeIs('printables.*')])>Printables</a>
-            <a href="{{ route('careers.index') }}" @class(['active' => request()->routeIs('careers.*')])>Careers</a>
+            <a href="{{ route('jobs.index') }}" @class(['active' => request()->routeIs('jobs.*')])>Jobs</a>
             <a href="{{ route('contact') }}" @class(['active' => request()->routeIs('contact')])>Contact</a>
         </div>
 
@@ -44,7 +44,7 @@
                     ['Gallery',     '{{ route("gallery.index") }}'],
                     ['Posts',       '{{ route("posts.index") }}'],
                     ['Printables',  '{{ route("printables.index") }}'],
-                    ['Careers',     '{{ route("careers.index") }}'],
+                    ['Jobs',        '{{ route("jobs.index") }}'],
                     ['Programs',    '{{ route("home") }}#programs'],
                     ['Contact',     '{{ route("contact") }}'],
                 ].forEach(([label, href]) => {

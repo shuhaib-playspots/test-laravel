@@ -17,42 +17,42 @@ class CareerController extends Controller
     {
         $careers = $this->service->allForAdmin();
 
-        return view('admin.careers.index', compact('careers'));
+        return view('admin.jobs.index', compact('careers'));
     }
 
     public function create()
     {
-        return view('admin.careers.create');
+        return view('admin.jobs.create');
     }
 
     public function store(StoreCareerRequest $request)
     {
         $this->service->create($request->validated());
 
-        return redirect()->route('admin.careers.index')
-            ->with('success', 'Career listing created successfully.');
+        return redirect()->route('admin.jobs.index')
+            ->with('success', 'Job listing created successfully.');
     }
 
     public function edit(int $career)
     {
         $career = $this->service->findById($career);
 
-        return view('admin.careers.edit', compact('career'));
+        return view('admin.jobs.edit', compact('career'));
     }
 
     public function update(UpdateCareerRequest $request, int $career)
     {
         $this->service->update($career, $request->validated());
 
-        return redirect()->route('admin.careers.index')
-            ->with('success', 'Career listing updated successfully.');
+        return redirect()->route('admin.jobs.index')
+            ->with('success', 'Job listing updated successfully.');
     }
 
     public function destroy(int $career)
     {
         $this->service->delete($career);
 
-        return redirect()->route('admin.careers.index')
-            ->with('success', 'Career listing deleted successfully.');
+        return redirect()->route('admin.jobs.index')
+            ->with('success', 'Job listing deleted successfully.');
     }
 }
